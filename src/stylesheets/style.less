@@ -1,28 +1,58 @@
 @import "base.less";
 
 
-body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; } 
-body, button, input, select, textarea { font:12px/1.5 "Lucida Grande", Helvetica, Arial, sans-serif;  } 
-address, cite, dfn, em, var { font-style:normal; } 
-code, kbd, pre, samp { font-family:couriernew, courier, monospace; } 
-small{ font-size:12px; } 
-ul, ol { list-style:none; } 
-a { text-decoration:none; } 
-a:hover { text-decoration:underline; } 
-sup { vertical-align:text-top; } 
-sub{ vertical-align:text-bottom; } 
-legend { color:#000; } 
-fieldset, img { border:0; } 
-button, input, select, textarea { font-size:100%; } 
-table { border-collapse:collapse; border-spacing:0; } 
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td {
+  margin: 0;
+  padding: 0;
+}
 
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
 
-body{
-    background: @background-white;
+fieldset,img {
+  border: 0;
+}
+
+ol,ul {
+  list-style: none;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+input, select {
+  margin: 0;
+  padding: 0;
+  text-shadow: none;
+  box-shadow: none;
+  text-indent: 0;
+  text-transform: none;
+  background-image: none;
+  border-image-outset: 0;
+  font: 12px/1.5 'Arial','Microsoft YaHei UI','Microsoft YaHei','sans-serif';
+}
+
+body {
+  font: 12px/1.5 'Arial','Microsoft YaHei UI','Microsoft YaHei','sans-serif';
+  background: @background-white;
 }
 
 header {
-    height: 60px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,5 +62,14 @@ header {
     left: 0;
     background:@main-theme;
     color: @background-white;
-    
+    font-size: 16px;
+    h1{
+        flex: 1;
+        justify-content: center;
+    }
+    .fa{
+        display: flex;
+        justify-content: center;
+        width: 40px;
+    }
 }

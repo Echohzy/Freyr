@@ -15,14 +15,15 @@ module.exports = {
   module: {
     rules: [
       { 
-        test:   /\.less$/, 
+        test:   /\.(css|less)$/, 
         use: [
           { loader: "style-loader" },
           { loader: "css-loader" },
           { loader: "less-loader" }
         ]
       },
-      { test: /\.js|jsx$/, loader: 'babel-loader' }
+      { test: /\.js|jsx$/, loader: 'babel-loader' },
+      { test: /\.(jpe|jpg|woff|woff2|eot|ttf|svg)(\?.*$|$)/, loader: 'url-loader'},
     ]
   },
   plugins: [

@@ -2,15 +2,15 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    main:[
+    index:[
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
-    "./src/javascripts/index.js"
+    "./src/javascripts/app/index.js"
     ]
   },
   output: {
     path: __dirname,
     publicPath: "/",
-    filename: "index.js"
+    filename: "[name].js"
   },
   module: {
     rules: [

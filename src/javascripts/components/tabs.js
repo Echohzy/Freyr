@@ -21,7 +21,7 @@ export default class Tabs extends Component {
     });
   }
   renderItems() {
-    return React.Children.map((child) => {
+    return React.Children.map(this.props.children, (child) => {
       let { itemKey, children } = child.props;
       return (
         <Item active={this.props.activeKey===itemKey}>

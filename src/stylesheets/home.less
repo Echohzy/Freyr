@@ -7,6 +7,7 @@
         .tabs-buttons {
             display: flex;
             background: @background-white;
+            box-sizing: border-box;
             .tab-button{
                 flex: 1;
                 display: flex;
@@ -20,6 +21,9 @@
                     outline: none;
                     color: @main-theme;
                 }
+            }
+            .tab-button.active button{
+                color: @main-theme-hover;
             }
         }
         .tabs-content{

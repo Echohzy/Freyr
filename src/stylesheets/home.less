@@ -27,7 +27,75 @@
             }
         }
         .tabs-content{
+            .tab-item-container{
+                display: none;
+            }
+            .tab-item-container.active{
+                display: block;
+            }
 
+        }
+        .movie-list{
+            padding: 10px;
+            .movie-card{
+                background: @white;
+                padding: 10px;
+                .border-radius(5px);
+                display: flex;
+                .box-shadow(0 0 10px rgba(223,224,223, 0.6));
+                img{
+                    height: 150px;
+                    width: 100px;
+                    margin-right: 10px;
+                }
+                .movie-info{
+                    color: @deep-grey;
+                    flex: 1;
+                    .title {
+                        font-size: 16px;
+                        .fa-ellipsis-h{
+                            float: right;
+                            border: none;
+                            background: none;
+                            outline: none;
+                            font-size: 14px;
+                            margin-top: 4px;
+                        }
+                        .tag{
+                            font-size: 12px;
+                            line-height: 16px;
+                            display: inline-block;
+                            color: @white;
+                            background: @deep-grey;
+                            padding: 0 2px;
+                            .border-radius(3px);
+                            vertical-align: text-top;
+                            margin-left: 10px;
+                        }
+                    }
+                    .types {
+                        font-size: 14px;
+                    }
+                    .review{
+                        margin-top: 40px;
+                        display: flex;
+                        .review-score-block{
+                            flex: 1;
+                            font-size: 14px;
+                            .fa{
+                                font-size: 12px;
+                                margin-right: 4px;
+                            }
+                            .fa-star{
+                                color: @yellow;
+                            }
+                        }
+                    }
+                }
+            }
+            .movie-card + .movie-card{
+                margin-top: 10px;
+            }
         }
     }
 }

@@ -9,3 +9,30 @@
 @text-heavy: #57514F;
 @text: #998F87;
 @text-light: #C8C2AF;
+@pinkish-grey: #bfbfbf;
+@cloudy-blue: #acb2cc;
+@warm-grey: #8c8c8c;
+@warm-grey-two: #909090;
+@deep-grey: #696f80;
+@yellow: #ffc700;
+
+
+.border-radius (@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius:    @radius;
+    border-radius:         @radius;
+
+    -moz-background-clip:    padding;
+    -webkit-background-clip: padding-box;
+    background-clip:         padding-box;
+}
+
+.text-shadow (@string: 0 1px 3px rgba(0, 0, 0, 0.25)) {
+    text-shadow: @string;
+}
+
+.box-shadow (@string) {
+    -webkit-box-shadow: @string;
+    -moz-box-shadow:    @string;
+    box-shadow:         @string;
+}

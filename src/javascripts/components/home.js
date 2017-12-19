@@ -8,6 +8,8 @@ import MovieList from "./movie_list.js";
 
 const { Item } = Tabs;
 
+import axios from 'axios';
+
 import '../../stylesheets/home.less';
 
 export default class Home extends Component {
@@ -17,6 +19,16 @@ export default class Home extends Component {
       activeKey: "books",
       movies: []
     };
+  }
+  componentDidMount(){
+    this.fetchMovies();
+  }
+  fetchMovies() {
+    axios.get("/api/hot_movies.json").then((res)=>{
+      return res.data;
+    }).then((data)=>{
+      this.setState({movies: data.movies});
+    });
   }
   changeActiveKey(activeKey) {
     this.setState({activeKey: activeKey});

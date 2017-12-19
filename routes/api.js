@@ -13,9 +13,8 @@ router.get("/hot_movies.json", function(req, res) {
     }
 
     let movies = JSON.parse(data);
-
     res.json({
-      movies: movies
+      movies: movies.data
     });
   });
 });

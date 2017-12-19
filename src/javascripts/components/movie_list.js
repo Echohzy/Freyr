@@ -15,7 +15,7 @@ export default class MovieList extends Component {
               data.tag?
               <span className="tag">{data.tag}</span>:""
             }
-            <button className="menu-button">...</button>
+            <i className="fa fa-ellipsis-h" />
           </div>
           <div className="types">
             {data.types.join("/")}
@@ -29,9 +29,9 @@ export default class MovieList extends Component {
               <p>{
                 [1,2,3,4,5].map((num)=>{
                   if(num<=data.user_review_score){
-                    return <i className="fa fa-star"></i>
+                    return <i className="fa fa-star" key={num}/>
                   } else {
-                    return <i className="fa fa-star-o"></i>
+                    return <i className="fa fa-star-o" key={num}/>
                   }
                 })
               }</p>
@@ -42,9 +42,9 @@ export default class MovieList extends Component {
                 {
                   [1,2,3,4,5].map((num)=>{
                     if (num <= data.professional_review_score) {
-                      return <i className="fa fa-star" />
+                      return <i className="fa fa-star" key={num} />
                     } else {
-                      return <i className="fa fa-star-o" />
+                      return <i className="fa fa-star-o" key={num} />
                     }
                   })
                 }

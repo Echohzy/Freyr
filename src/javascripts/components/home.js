@@ -6,6 +6,10 @@ import Tabs from './tabs.js';
 
 import MovieList from "./movie_list.js";
 
+import BookList from "./book_list.js";
+
+import HomeList from "./home_list.js";
+
 const { Item } = Tabs;
 
 import axios from 'axios';
@@ -17,18 +21,7 @@ export default class Home extends Component {
     super(props);
     this.state = {
       activeKey: "books",
-      movies: []
     };
-  }
-  componentDidMount(){
-    this.fetchMovies();
-  }
-  fetchMovies() {
-    axios.get("/api/hot_movies.json").then((res)=>{
-      return res.data;
-    }).then((data)=>{
-      this.setState({movies: data.movies});
-    });
   }
   changeActiveKey(activeKey) {
     this.setState({activeKey: activeKey});
@@ -38,9 +31,10 @@ export default class Home extends Component {
       <div className="home-container">
         <Tabs activeKey={this.state.activeKey}>
           <Item itemKey="books" title={<button onClick={()=>this.changeActiveKey("books")}>Book</button>}>
+            <HomeList type="books" />
           </Item>
           <Item itemKey="movies" title={<button onClick={()=>this.changeActiveKey("movies")}>Movie</button>}>
-            <MovieList movies={this.state.movies} />
+            <HomeList type="movies" />
           </Item>
         </Tabs>
       </div>

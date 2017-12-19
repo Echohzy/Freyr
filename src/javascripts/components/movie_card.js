@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
-import axios from 'axios';
-
-export default class MovieList extends Component {
+export default class MovieCard extends Component {
   constructor(props) {
     super(props);
   }
-  renderMovieCard(data) {
+  render() {
+    const { data } = this.props;
     return (
       <div className="movie-card" key={data.id}>
         <img src={data.post + "?imageView2/1/h/150/w/100"} />
@@ -54,17 +53,6 @@ export default class MovieList extends Component {
             </div>
           </div>
         </div>
-      </div>
-    );
-  }
-  render() {
-    return (
-      <div className="movie-list">
-        {
-          this.props.movies.map((movie)=>{
-            return this.renderMovieCard(movie)
-          })
-        }
       </div>
     );
   }

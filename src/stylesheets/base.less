@@ -15,6 +15,9 @@
 @warm-grey-two: #909090;
 @deep-grey: #696f80;
 @yellow: #ffc700;
+@light-pink: #fcf7f7;
+@hover-pink: #f5e9e9;
+
 
 
 .border-radius (@radius: 5px) {
@@ -35,4 +38,11 @@
     -webkit-box-shadow: @string;
     -moz-box-shadow:    @string;
     box-shadow:         @string;
+}
+
+.transition (@string) {
+    transition: @string;
+    -moz-transition: @string;
+    -webkit-transition: @string;
+    -o-transition: @string;
 }

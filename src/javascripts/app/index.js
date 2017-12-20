@@ -8,19 +8,28 @@ import ReactDOM from 'react-dom';
 
 import Home from '../components/home.js';
 
+import PersonalMenu from '../components/personal_menu.js';
+
 import '../../stylesheets/style.less';
 
 class IndexApp extends BaseApp {
-  constructor(node) {
-    super(node);
+  constructor() {
+    super();
   }
-  initialize(node) {
-    ReactDOM.render(<Home />, node);
+  render() {
+    ReactDOM.render(<Home />, document.getElementById('app'));
+    ReactDOM.render(<PersonalMenu />, document.querySelector(".bar-button-wrap"));
+  }
+  initialize() {
+    this.render();
   }
 }
 
 function __main() {
-  new IndexApp(document.getElementById('app'));
+  new IndexApp();
 }
 
 __main();
+
+
+

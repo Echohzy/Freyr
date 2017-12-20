@@ -35,4 +35,20 @@ router.get("/hot_books.json", function(req, res) {
   });
 });
 
+router.get("/accounts/:id", function(req, res) {
+  fs.readFile(path.join(__dirname, "../api/account.json"), (err, data)=>{
+    if (err) {
+      res.status(404).json({
+        error: "document not found"
+      });
+      return;
+    }
+
+    let account = JSON.parse(data);
+    res.json({
+      account: account.data
+    });
+  });
+});
+
 module.exports = router;

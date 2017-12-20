@@ -1,0 +1,59 @@
+@import 'base.less';
+
+.personal-menu{
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    height: 100vh;
+    background: @light-pink;
+    .transition(width 0.5s ease);
+    button{
+        float: right;
+        color: @main-theme;
+        font-size: 16px;
+        background: none;
+        outline: none;
+        border: none;
+        height: 50px;
+        width: 50px;
+    }
+    .content{
+        width: 200px;
+        padding-top: 100px;
+        .avatar-wrapper{
+            height: 80px;
+            width: 80px;
+            margin-left: 34px;
+            .border-radius(40px);
+            overflow: hidden;
+            .box-shadow(-8px 8px 10px rgba(223, 224, 223, 0.6));
+        }
+        .user-menu{
+            margin-top: 40px;
+            color: @deep-grey;
+            li{
+                height: 50px;
+                border-left: 4px solid transparent;
+                display: flex;
+                align-items: center;
+                .fa{
+                    width: 30px;
+                    margin-left: 30px;
+                }
+                span{
+                    flex: 1;
+                }
+            }
+            li.active{
+                background:  @hover-pink;
+                border-left: 4px solid @main-theme;
+            }
+        }
+    }
+}
+.personal-menu.show{
+    width: 100vw;
+}

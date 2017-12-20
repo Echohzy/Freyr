@@ -7,7 +7,7 @@ export default class BookCard extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="book-card" key={data.id}>
+      <div className="book-card card" key={data.id}>
         <img src={data.cover + "?imageView2/1/h/150/w/100"}/>
         <div className="book-info">
           <div className="title">

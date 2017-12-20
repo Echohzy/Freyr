@@ -4,10 +4,6 @@ import React, { Component } from 'react';
 
 import Tabs from './tabs.js';
 
-import MovieList from "./movie_list.js";
-
-import BookList from "./book_list.js";
-
 import HomeList from "./home_list.js";
 
 const { Item } = Tabs;

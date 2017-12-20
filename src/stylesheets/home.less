@@ -1,4 +1,5 @@
 @import 'base.less';
+@import 'loading_svg.less';
 
 .home-container {
     font-size: 12px;
@@ -37,9 +38,9 @@
             }
 
         }
-        .movie-list{
+        .home-list{
             padding: 10px;
-            .movie-card{
+            .card{
                 background: @white;
                 padding: 10px;
                 .border-radius(5px);
@@ -50,6 +51,8 @@
                     width: 100px;
                     margin-right: 10px;
                 }
+            }
+            .movie-card{
                 .movie-info{
                     color: @deep-grey;
                     flex: 1;
@@ -95,9 +98,34 @@
                     }
                 }
             }
-            .movie-card + .movie-card{
+            .book-card{
+                .book-info{
+                    flex: 1;
+                     color: @deep-grey;
+                    .title{
+                        font-size: 16px;
+                        .fa{
+                            font-size: 14px;
+                            margin-top: 4px;
+                            float: right;
+                        }
+                    }
+                    p {
+                        font-size: 14px;
+                        margin-top: 4px;
+                    }
+                }
+            }
+            .card + .card{
                 margin-top: 10px;
             }
+        }
+    }
+    .loading-block{
+        text-align: center;
+        padding-top: 10px;
+        #circle{
+            stroke: @main-theme;
         }
     }
 }

@@ -7,7 +7,7 @@ export default class MovieCard extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="movie-card" key={data.id}>
+      <div className="movie-card card" key={data.id}>
         <img src={data.post + "?imageView2/1/h/150/w/100"} />
         <div className="movie-info">
           <div className="title">

@@ -15,7 +15,14 @@ export default class HomeList extends Component {
     }
   }
   componentDidMount() {
-    this.getData();
+    if (this.props.active) {
+      this.getData();
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.active && nextProps.active !== this.props.active && !this.state.data.length) {
+      this.getData();
+    } 
   }
   getData() {
     if (this.state.requesting) {
@@ -29,6 +36,15 @@ export default class HomeList extends Component {
       this.setState({requesting: false, data: data[type]});
     });
   }
+  renderLoadingBlock() {
+    return (
+      <div className="loading-block">
+        <svg height="32" width="32" viewBox="0 0 32 32">
+          <circle id="circle" cx="16" cy="16" r="14" fill="none"/>  
+        </svg>
+      </div>
+    );
+  }
   render() {
     const { type } = this.props;
     let Tmp = BookCard;
@@ -41,6 +57,9 @@ export default class HomeList extends Component {
           this.state.data.map((data)=>{
             return <Tmp data={data} key={data.id}/>
           })
+        }
+        {
+          this.state.requesting? this.renderLoadingBlock() : ""
         }
       </div>
     );

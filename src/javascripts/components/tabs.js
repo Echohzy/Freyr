@@ -25,7 +25,11 @@ export default class Tabs extends Component {
       let { itemKey, children } = child.props;
       return (
         <Item active={this.props.activeKey===itemKey}>
-          {children}
+          {
+            React.Children.map(children, (subChild)=>{
+              return React.cloneElement(subChild, {active: this.props.activeKey===itemKey})
+            })
+          }
         </Item>
       );
 

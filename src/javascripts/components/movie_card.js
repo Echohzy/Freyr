@@ -16,7 +16,14 @@ export default class MovieCard extends Component {
               data.tag?
               <span className="tag">{data.tag}</span>:""
             }
-            <i className="fa fa-ellipsis-h" />
+            <button>
+              <i className="fa fa-ellipsis-h" />
+              <ul className="menu">
+                <div className="triangle">
+                </div>
+                <li>收藏</li>
+              </ul>
+            </button>
           </div>
           <div className="types">
             {data.types.join("/")}

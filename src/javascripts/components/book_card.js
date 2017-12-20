@@ -12,7 +12,14 @@ export default class BookCard extends Component {
         <div className="book-info">
           <div className="title">
             <span>{data.title}</span>
-            <i className="fa fa-ellipsis-h" />
+            <button>
+              <i className="fa fa-ellipsis-h" />
+              <ul className="menu">
+                <div className="triangle">
+                </div>
+                <li>收藏</li>
+              </ul>
+            </button>
           </div>
           <p>{"作者：" + data.author}</p>
           <p>{"出版社：" + data.publisher}</p>

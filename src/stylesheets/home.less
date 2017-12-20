@@ -51,6 +51,46 @@
                     width: 100px;
                     margin-right: 10px;
                 }
+                .title{
+                    position: relative;
+                     button{
+                        float: right;
+                        border: none;
+                        background: none;
+                        outline: none;
+                        font-size: 14px;
+                        margin-top: 4px;
+                    }
+                    .menu{
+                        display: none;
+                        width: 50px;
+                        font-size: 12px;
+                        position: absolute;
+                        background: rgba(0,0,0, 0.6);
+                        color: @white;
+                        right: -10px;
+                        top: 22px;
+
+                        li{
+                            padding: 4px 0;
+                            text-align: center;
+                        }
+                        .triangle{
+                            position: absolute;
+                            border-width: 6px;
+                            border-style: solid;
+                            border-color: transparent transparent  rgba(0,0,0,0.6) transparent;
+                            top: -12px;
+                            left: 22px;
+                        }
+                    }
+                    
+                    button:focus{
+                        .menu{
+                            display: block;
+                        }
+                    }
+                }
             }
             .movie-card{
                 .movie-info{
@@ -58,14 +98,7 @@
                     flex: 1;
                     .title {
                         font-size: 16px;
-                        .fa-ellipsis-h{
-                            float: right;
-                            border: none;
-                            background: none;
-                            outline: none;
-                            font-size: 14px;
-                            margin-top: 4px;
-                        }
+                       
                         .tag{
                             font-size: 12px;
                             line-height: 16px;
@@ -104,11 +137,6 @@
                      color: @deep-grey;
                     .title{
                         font-size: 16px;
-                        .fa{
-                            font-size: 14px;
-                            margin-top: 4px;
-                            float: right;
-                        }
                     }
                     p {
                         font-size: 14px;

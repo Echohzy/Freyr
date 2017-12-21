@@ -51,4 +51,21 @@ router.get("/accounts/:id", function(req, res) {
   });
 });
 
+
+router.get("/movies/:id", function(req, res) {
+   fs.readFile(path.join(__dirname, "../api/movie.json"), (err, data)=>{
+    if (err) {
+      res.status(404).json({
+        error: "document not found"
+      });
+      return;
+    }
+
+    let movie = JSON.parse(data);
+    res.json({
+      movie: movie.data
+    });
+  });
+});
+
 module.exports = router;

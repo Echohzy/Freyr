@@ -28,7 +28,7 @@ class MovieApp extends BaseApp {
     ReactDOM.render(<MovieDetail id={id}/>, node);
   }
   initialize(history) {
-    this.history = history
+    this.history = history;
     this.render();
     this.bindBackButton();
   }

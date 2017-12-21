@@ -32,6 +32,31 @@ export default class MovieDetail extends Component {
           <div className="mask">
           </div>
         </div>
+        <div className="movie-content">
+          <div className="movie-info">
+            <div className="image-wrapper">
+              <img src={movie.post + "?imageView2/1/w/100/h/150"} />
+            </div>
+            <div className="movie-detail">
+              <h1>{movie.name}</h1>
+              <p>{"导演：" + (movie.directors&&movie.directors.join("/"))}</p>
+              <p>{"主演：" + (movie.stars&&movie.stars.join("/"))}</p>
+              <p>{"类型：" + (movie.types&&movie.types.join("/"))}</p>
+              <p>{"语言：" + (movie.languages&&movie.languages.join("/"))}</p>
+              <p>{"片长：" + (movie.durations + "分钟")}</p>
+            </div>
+          </div>
+
+          <div className="summary"> 
+            <h1>简介</h1>
+            <p>{movie.summary + "......"}</p>
+          </div>
+
+          <div className="review-list">
+            <h1>热门影评</h1>
+          </div>
+
+        </div>
       </div>
     );
   }

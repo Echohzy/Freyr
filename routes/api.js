@@ -68,4 +68,22 @@ router.get("/movies/:id", function(req, res) {
   });
 });
 
+
+
+router.get("/movies/:id/reviews", function(req, res) {
+  fs.readFile(path.join(__dirname, "../api/reviews.json"), (err, data)=>{
+    if (err) {
+      res.status(404).json({
+        error: "document not found"
+      });
+      return;
+    }
+
+    let reviews = JSON.parse(data);
+    res.json({
+      reviews: reviews.data
+    });
+  });
+});
+
 module.exports = router;

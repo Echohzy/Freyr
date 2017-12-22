@@ -10,6 +10,10 @@ router.get("/books/:id", function(req, res, next) {
   res.render('book', { title: "Book", id: req.params.id });
 });
 
+router.get("/search", function(req, res, next) {
+  res.render('search', { title: "Freyr" });
+});
+
 /* GET home page. */
 router.get(/[^\n]*/, function(req, res, next) {
   res.render('index', { title: 'Freyr' });

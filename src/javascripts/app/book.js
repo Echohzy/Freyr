@@ -21,9 +21,16 @@ class Book extends BaseApp {
     let id = parseInt(node.getAttribute('data-id'));
     ReactDOM.render(<BookDetail id={id} />, node);
   }
+  bindBackButton() {
+    let backButton = document.getElementById("back-button");
+    backButton.addEventListener("click", (evt)=>{
+      this.history.goBack();
+    });
+  }
   initialize(history) {
     this.history = history;
     this.render();
+    this.bindBackButton();
   }
 }
 

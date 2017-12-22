@@ -11,7 +11,7 @@ export default class MovieCard extends Component {
         <img src={data.post + "?imageView2/1/h/150/w/100"} />
         <div className="movie-info">
           <div className="title">
-            <span>{data.name}</span>
+            <a href={"/movies/" + data.id}>{data.name}</a>
             {
               data.tag?
               <span className="tag">{data.tag}</span>:""

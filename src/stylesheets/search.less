@@ -1,0 +1,44 @@
+@import 'base.less';
+
+.search-header{
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+    input{
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid rgba(251, 249, 250, 0.5);
+        color: @background-white;
+        font-size: 14px;
+        padding: 2px 8px;
+        &:focus{
+            text-decoration: none;
+        }
+    }
+    input::placeholder{
+        color: rgba(251, 249, 250, 0.5);
+    }
+    .close-icon{
+        position: relative;
+        height: 21px;
+        width: 21px;
+        transform: rotate(45deg);
+        margin: 5px  0 0 10px;
+        .icon-item{
+            background: @background-white;
+            position: absolute;
+        }
+        .horizontal{
+            height: 21px;
+            width: 1px;
+            left: 10px;
+        }
+        .vertical{
+            height: 1px;
+            width: 21px;
+            top: 10px;
+        }
+    }
+}

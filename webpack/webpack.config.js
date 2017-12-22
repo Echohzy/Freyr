@@ -13,7 +13,11 @@ module.exports = {
     book: [
       'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
       './src/javascripts/app/book.js'
-    ]
+    ],
+    search: [
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+      './src/javascripts/app/search.js'
+    ],
   },
   output: {
     path: __dirname,

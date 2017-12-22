@@ -11,7 +11,7 @@ export default class BookCard extends Component {
         <img src={data.cover + "?imageView2/1/h/150/w/100"}/>
         <div className="book-info">
           <div className="title">
-            <span>{data.title}</span>
+            <a href={"/books/" + data.id}>{data.title}</a>
             <button>
               <i className="fa fa-ellipsis-h" />
               <ul className="menu">

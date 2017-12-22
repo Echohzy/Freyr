@@ -1,5 +1,5 @@
 {
-    "data": [{
+    "data": {
         "id": "1",
         "title": "伊斯坦布尔假期",
         "date": "2016-08-18",
@@ -7,6 +7,9 @@
         "publisher": "湖南文艺出版社",
         "price": "42.0",
         "ISBN": "9787540483227",
-        "cover": "https://s3.sonkwo.com/FhGRhyatig4kvYcN5lS-fWZMQIr4"
-    }]
+        "cover": "https://s3.sonkwo.com/FhGRhyatig4kvYcN5lS-fWZMQIr4",
+        "summary": "这是一本书的简要介绍啦",
+        "reviews_count": 1000,
+        "score": 4
+    }
 }

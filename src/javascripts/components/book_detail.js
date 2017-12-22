@@ -1,73 +1,67 @@
 import React, { Component } from 'react';
 
-import { getDateByTimestamp } from  '../utils/date.js';
+import { getDateByTimestamp } from "../utils/date.js";
 
 import axios from 'axios';
 
-import '../../stylesheets/movie.less';
+import '../../stylesheets/book.less';
 
-export default class MovieDetail extends Component {
+export default class BookDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movie: {},
+      book: {},
       reviews: []
-    }
+    };
   }
   componentDidMount() {
-    this.getMovieData();
-    this.getReviews();
+    this.getBookDate();
+    this.getBookReviews();
   }
-  getMovieData() {
+  getBookDate() {
     const { id } = this.props;
-
-    axios.get("/api/movies/"+id).then((res)=>{
+    axios.get("/api/books/" + id).then((res)=>{
       return res.data;
     }).then((data)=>{
-      this.setState({movie: data.movie});
-    })
+      this.setState({book: data.book});
+    });
   }
-  getReviews() {
+  getBookReviews() {
     const { id } = this.props;
-
-    axios.get("/api/movies/" + id + "/reviews").then((res)=>{
+    axios.get("/api/books/"+id+"/reviews").then((res)=>{
       return res.data;
     }).then((data)=>{
       this.setState({reviews: data.reviews});
     });
   }
   render() {
-    const { movie, reviews } = this.state;
-    return (
-      <div className="movie-detail-container">
-        <div className="post-block">
-          <img src={movie.post}/>
-          <div className="mask">
-          </div>
-        </div>
-        <div className="movie-content">
-          <div className="movie-info">
-            <div className="image-wrapper">
-              <img src={movie.post + "?imageView2/1/w/100/h/150"} />
-            </div>
-            <div className="movie-detail">
-              <h1>{movie.name}</h1>
-              <p>{"导演：" + (movie.directors&&movie.directors.join("/"))}</p>
-              <p>{"主演：" + (movie.stars&&movie.stars.join("/"))}</p>
-              <p>{"类型：" + (movie.types&&movie.types.join("/"))}</p>
-              <p>{"语言：" + (movie.languages&&movie.languages.join("/"))}</p>
-              <p>{"片长：" + (movie.durations + "分钟")}</p>
-            </div>
-          </div>
-          <div className="summary"> 
-            <h1>简介</h1>
-            <p>{movie.summary + "......"}</p>
-          </div>
+    const { book, reviews }  = this.state;
 
-          <div className="review-list">
-            <h1>热门影评</h1>
+    return (
+      <div className="book-detail-container">
+        <div className="cover-block">
+          <img src={book.cover} />
+        </div>
+        <div className="book-title">
+          <h1>{book.title}</h1>
+          <p className="author">{book.author}</p>
+          <p className="score">
             {
-              reviews.map((review)=>{
+              [1,2,3,4,5].map((num)=>{
+                if(num<=book.score){
+                  return <i className="fa fa-star" key={num} />
+                } else {
+                  return <i className="fa fa-star-o" key={num} />
+                }
+              })
+            }
+          </p>
+        </div>
+        <p className="book-summary">{book.summary + "..."}</p>
+        <div className="review-list">
+          <h1>热门书评</h1>
+          {
+           reviews.map((review)=>{
                 return (
                   <div className="review-block" key={review.id}>
                     <div className="review-author">
@@ -98,9 +92,7 @@ export default class MovieDetail extends Component {
                   </div>
                 );
               })
-            }
-          </div>
-
+          }
         </div>
       </div>
     );

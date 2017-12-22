@@ -9,6 +9,10 @@ module.exports = {
     movie: [
       'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
       './src/javascripts/app/movie.js'
+    ],
+    book: [
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+      './src/javascripts/app/book.js'
     ]
   },
   output: {

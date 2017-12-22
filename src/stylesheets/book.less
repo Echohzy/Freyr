@@ -1,0 +1,52 @@
+@import 'base.less';
+@import './parts/review_block.less';
+
+.book-detail-container{
+    padding-top: 50px;
+    .cover-block{
+        display: flex;
+        height: 300px;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+        img{
+            height: 300px;
+        }
+    }
+    .book-title{
+        padding: 10px 0;
+        text-align: center;
+        h1{
+            font-size: 18px;
+            color: @deep-grey;
+        }
+        .author{
+            color: @warm-grey;
+            margin: 10px 0;
+        }
+        .score{
+            color: @deep-grey;
+            .fa{
+                font-size: 14px;
+            }
+            .fa + .fa{
+                margin-left: 4px;
+            }
+            .fa-star{
+                color: @yellow;
+            }
+        }
+    }
+    .book-summary, .review-list{
+        color: @deep-grey;
+        padding: 0 10px;
+    }
+    .review-list {
+        h1{
+            font-size: 16px;
+            font-weight: bold;
+            color: @main-theme;
+            margin: 10px 0;
+        }
+    }
+}

@@ -71,9 +71,9 @@ export default class BookDetail extends Component {
                         {
                           [1,2,3,4,5].map(function(num){
                             if (num <= review.score) {
-                              return <i className="fa fa-star" />
+                              return <i className="fa fa-star" key={num}/>
                             } else {
-                              return <i className="fa fa-star-o" />
+                              return <i className="fa fa-star-o" key={num}/>
                             }
                           })
                         }

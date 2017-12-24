@@ -78,11 +78,38 @@
     }
   }
   .search-list{
-    padding: 0 10px;
     .result-block{
-      padding: 4px 0;
+      padding: 4px 10px;
       font-size: 14px;
       color: @deep-grey;
+      background: @white;
+    }
+    .search-item{
+      padding: 10px;
+      display: flex;
+      font-size: 14px;
+      .img-wrapper{
+        height: 50px;
+        width: 30px;
+        margin-right: 10px;
+        img{
+          height: 50px;
+          width: 30px;
+        }
+      }
+      .item-info{
+        a{
+          color: @deep-grey;
+        }
+        p{
+          font-size: 12px;
+          color: @cloudy-blue;
+          margin-top: 10px;
+        }
+      }
+    }
+    .search-item + .search-item{
+      border-top: 1px solid @cloudy-blue;
     }
   }
 }

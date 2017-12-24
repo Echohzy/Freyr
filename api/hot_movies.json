@@ -1,6 +1,7 @@
 {
     "data": [{
         "id": "1",
+        "cate":"movie",
         "name": "大鱼海棠",
         "tag": "3D",
         "types": ["动画", "科幻"],
@@ -10,6 +11,7 @@
         "post": "https://s3.sonkwo.com/Fl9eyLC0MI_cZMR2cEO_IxL1x1x4"
     },{
         "id": "2",
+        "cate":"movie",
         "name": "原来你还在这里",
         "tag": "3D",
         "types": ["都市", "爱情"],
@@ -20,6 +22,7 @@
     },
     {
         "id": "3",
+        "cate":"movie",
         "name": "原来你还在这里",
         "tag": "3D",
         "types": ["都市", "爱情"],
@@ -29,6 +32,7 @@
         "post": "https://s3.sonkwo.com/FnGhdfQMnAH_2BBEbv4G4lAONFqm"
     },{
         "id": "4",
+        "cate":"movie",
         "name": "原来你还在这里",
         "tag": "3D",
         "types": ["都市", "爱情"],
@@ -38,6 +42,7 @@
         "post": "https://s3.sonkwo.com/FnGhdfQMnAH_2BBEbv4G4lAONFqm"
     },{
         "id": "5",
+        "cate":"movie",
         "name": "原来你还在这里",
         "tag": "3D",
         "types": ["都市", "爱情"],

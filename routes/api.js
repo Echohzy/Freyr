@@ -122,20 +122,35 @@ router.get("/books/:id/reviews", function(req, res) {
   });
 });
 
-router.get("/search", function(req, res) {
-  fs.readFile(path.join(__dirname, "../api/hot_books.json"), (err, data)=>{
-    if (err) {
-      res.status(404).json({
-        error: "document not found"
-      });
-      return;
-    }
-    
-    let books = JSON.parse(data);
-    res.json({
-      books: books.data
+router.get("/search", function(req, res) {  
+  return new Promise(function (resolve, reject){
+    fs.readFile(path.join(__dirname, "../api/hot_books.json"), (err, data)=>{
+      if (err) {
+        reject({
+          error: "document not found"
+        })
+      }
+      let books = JSON.parse(data);
+      resolve(books);
     });
-  });
+  }).then(function(data){
+    fs.readFile(path.join(__dirname, "../api/hot_movies.json"), (err, doc)=>{
+      if (err) {
+        return Promise.reject({
+          error: "document not found"
+        });
+      }
+      let result = JSON.parse(doc);
+      console.log(data);
+      console.log(result);
+      res.json({
+        books: data.data,
+        movies: result.data
+      });
+    });
+  }).catch(function(error){
+    res.status(404).json(error);
+  })
 });
 
 module.exports = router;

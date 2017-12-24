@@ -122,4 +122,20 @@ router.get("/books/:id/reviews", function(req, res) {
   });
 });
 
+router.get("/search", function(req, res) {
+  fs.readFile(path.join(__dirname, "../api/hot_books.json"), (err, data)=>{
+    if (err) {
+      res.status(404).json({
+        error: "document not found"
+      });
+      return;
+    }
+    
+    let books = JSON.parse(data);
+    res.json({
+      books: books.data
+    });
+  });
+});
+
 module.exports = router;

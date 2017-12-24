@@ -42,3 +42,47 @@
         }
     }
 }
+
+.search-container {
+  padding-top: 50px;
+  .tabs-buttons {
+    display: flex;
+    background: @main-theme;
+    .tab-button{
+      flex: 1;
+      text-align: center;
+      button{
+        background: none;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        height: 40px;
+        color: @background-white;
+        box-sizing: border-box;
+        border-bottom: 4px solid transparent;
+      }
+    }
+    .tab-button.active{
+      button{
+        color: @background-white-hover;
+        border-bottom: 4px solid @background-white-hover;
+      }
+    }
+  }
+  .tabs-content {
+    .tab-item-container{
+      display: none;
+    }
+    .tab-item-container.active{
+      display: block;
+    }
+  }
+  .search-list{
+    padding: 0 10px;
+    .result-block{
+      padding: 4px 0;
+      font-size: 14px;
+      color: @deep-grey;
+    }
+  }
+}

@@ -8,6 +8,8 @@ import BaseApp from "./base_app.js";
 
 import SearchHeader from '../components/search_header.js';
 
+import SearchContent from '../components/search_content.js';
+
 import createHistory from 'history/createBrowserHistory';
 
 import '../../stylesheets/style.less';
@@ -18,6 +20,7 @@ class SearchApp extends BaseApp {
   }
   render() {
     ReactDOM.render(<SearchHeader history={this.history} />, document.getElementById("search-header"));
+    ReactDOM.render(<SearchContent history={this.history} />, document.getElementById("app"));
   }
   initialize(history) {
     this.history = history;

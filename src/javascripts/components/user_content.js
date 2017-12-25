@@ -8,7 +8,11 @@ import Tabs from './tabs.js';
 
 const { Item } = Tabs;
 
-import InterestList from './interest_list';
+import InterestList from './interest_list.js';
+
+import CollectionList from './collection_list.js';
+
+import ReviewList from './review_list.js';
 
 import { parseUrl } from '../utils/location.js';
 
@@ -73,8 +77,10 @@ export default class UserContent extends Component {
             <InterestList data={interestes} />
           </Item>
           <Item itemKey={"collections"} title={<button onClick={()=>this.changeActiveKey("collections")}>Collections</button>}>
+            <CollectionList data={collections} />
           </Item>
           <Item itemKey={"reviews"} title={<button onClick={()=>this.changeActiveKey("reviews")}>Reviews</button>}>
+            <ReviewList data={reviews} />
           </Item>
         </Tabs>
       </div>

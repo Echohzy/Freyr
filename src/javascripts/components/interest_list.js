@@ -28,9 +28,9 @@ export default class InterestList extends Component {
                   {
                     [1,2,3,4,5].map((num)=>{
                       if (num <= item.interest.user_review_score) {
-                        return <i className="fa fa-star" />
+                        return <i className="fa fa-star" key={num} />
                       } else {
-                        return <i className="fa fa-star-o" />
+                        return <i className="fa fa-star-o" key={num}/>
                       }
                     })
                   }

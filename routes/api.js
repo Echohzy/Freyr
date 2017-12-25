@@ -151,4 +151,51 @@ router.get("/search", function(req, res) {
   })
 });
 
+router.get("/accounts/:id/interestes.json", function(req, res){
+  fs.readFile(path.join(__dirname, "../api/interestes.json"), (err, data)=>{
+    if (err) {
+      res.status(404).json({
+        error: "document not found"
+      });
+    }
+
+    let interestes = JSON.parse(data);
+    res.json({
+      interestes: interestes.data
+    });
+
+  });
+});
+
+router.get("/accounts/:id/collections.json", function(req, res){
+  fs.readFile(path.join(__dirname, "../api/collections.json"), (err, data)=>{
+    if (err) {
+      res.status(404).json({
+        error: "document not found"
+      });
+    }
+
+    let collections = JSON.parse(data);
+    res.json({
+      collections: collections.data
+    });
+  });
+});
+
+
+router.get("/accounts/:id/reviews.json", function(req, res) {
+  fs.readFile(path.join(__dirname, "../api/movie_reviews.json"), (err, data)=>{
+    if (err) {
+      res.status(404).json({
+        error: "document not found"
+      });
+    }
+    
+    let reviews = JSON.parse(data);
+    res.json({
+      reviews: reviews.data
+    });
+  });
+});
+
 module.exports = router;

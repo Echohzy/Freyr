@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 
+router.get("/users/:id", function(req, res, next) {
+  res.render('user', {title: 'User', id: req.params.id });
+});
+
 router.get("/movies/:id", function(req, res, next) {
   res.render('movie', { title: 'Movie', id: req.params.id });
 });

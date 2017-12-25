@@ -10,8 +10,6 @@ import createHistory from 'history/createBrowserHistory';
 
 import MovieDetail from '../components/movie_detail.js';
 
-import '../../stylesheets/style.less';
-
 class MovieApp extends BaseApp {
   constructor() {
     super(createHistory());

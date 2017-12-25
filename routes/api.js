@@ -141,8 +141,6 @@ router.get("/search", function(req, res) {
         });
       }
       let result = JSON.parse(doc);
-      console.log(data);
-      console.log(result);
       res.json({
         books: data.data,
         movies: result.data

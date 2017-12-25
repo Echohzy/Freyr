@@ -1,0 +1,47 @@
+@import 'base.less';
+
+.user-container {
+    padding-top: 50px;
+    .user-info-card {
+        height: 200px;
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        box-sizing: border-box;
+        padding: 40px 0;
+        text-align: center;
+        .avatar-wrapper{
+            height: 80px;
+            width: 80px;
+            margin: 0 auto;
+            .border-radius(40px);
+            overflow: hidden;
+        }
+        .nickname{
+            font-size: 16px;
+            font-weight: bold;
+            color: @main-theme;
+            margin-top: 10px;
+           text-shadow: -2px 2px 1px rgba(80, 71, 71, 0.1);
+        }
+    }
+    .tabs-buttons{
+        display: flex;
+        .tab-button{
+            border: 1px solid @main-theme;
+
+            flex: 1;
+            text-align: center;
+            button{
+                height: 30px;
+                color: @main-theme;
+            }
+        }
+        .tab-button.active{
+            background:  @main-theme;
+            button{
+                color: @background-white;
+            }
+        }
+    }
+}

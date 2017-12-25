@@ -12,8 +12,6 @@ import SearchContent from '../components/search_content.js';
 
 import createHistory from 'history/createBrowserHistory';
 
-import '../../stylesheets/style.less';
-
 class SearchApp extends BaseApp {
   constructor() {
     super(createHistory());

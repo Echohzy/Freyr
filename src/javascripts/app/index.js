@@ -10,8 +10,6 @@ import Home from '../components/home.js';
 
 import PersonalMenu from '../components/personal_menu.js';
 
-import '../../stylesheets/style.less';
-
 class IndexApp extends BaseApp {
   constructor() {
     super();

@@ -10,8 +10,6 @@ import BookDetail from '../components/book_detail.js';
 
 import BaseApp from './base_app.js';
 
-import '../../stylesheets/style.less';
-
 class Book extends BaseApp {
   constructor() {
     super(createHistory());

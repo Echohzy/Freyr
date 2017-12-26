@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+router.get("/notifications", function(req, res, next){
+  res.render('notification', {title: 'Notification' });
+});
+
 router.get("/reviews/:id", function(req, res, next) {
   res.render('review', {title: 'Review', id: req.params.id });
 });

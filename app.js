@@ -10,8 +10,10 @@ var api = require('./routes/api');
 var webpackDevMiddleware = require("webpack-dev-middleware");
 var webpack = require("webpack");
 var webpackConfig = require("./webpack/webpack.config");
+
 var compiler = webpack(webpackConfig);
 
+require("./config/app_init.js");
 
 var app = express();
 

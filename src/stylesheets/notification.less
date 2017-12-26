@@ -1,0 +1,38 @@
+@import 'base.less';
+
+.notification-list {
+    padding: 50px 10px 0;
+    .notification-block{
+        padding: 20px 10px;
+        display: flex;
+        position: relative;
+        .avatar-wrapper{
+            margin-right: 10px;
+            img{
+                .border-radius(20px);
+            }
+        }
+        .info {
+            flex: 1;
+            button {
+                float: right;
+                right: 0;
+                top: 0;
+            }
+            .nickname{
+                font-size: 14px;
+                color: @dark;
+                font-weight: bold;
+            }
+            p{
+                margin: 6px 0;
+            }
+            .date{
+                color: @cloudy-blue;
+            }
+        }
+    }
+    .notification-block + .notification-block {
+        border-top: 1px solid @cloudy-blue;
+    }
+}

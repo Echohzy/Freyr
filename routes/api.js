@@ -3,6 +3,8 @@ var router = express.Router();
 var fs = require("fs");
 var path = require("path");
 
+var AccountApi = require('../api/account_api');
+
 router.get("/hot_movies.json", function(req, res) {
   fs.readFile(path.join(__dirname, "../api/hot_movies.json"), (err, data)=>{
     if(err) {
@@ -226,6 +228,36 @@ router.get("/reviews/:id/comments.json", function(req, res) {
 
     res.json({
       comments: comments.data
+    });
+  });
+});
+
+router.get("/notifications.json", function(req, res) {
+  fs.readFile(path.join(__dirname, "../api/notifications.json"), (err, data)=>{
+     if (err) {
+      res.status(404).json({
+        error: "document not found"
+      });
+    }
+
+    let notifications = JSON.parse(data);
+
+    res.json({
+      notifications: notifications.data
+    });
+  });
+});
+
+router.post("/accounts/new", function(req, res) {
+  AccountApi.addAccount(req.body).then(function(data){
+    res.json({
+      status: 'success',
+      data: data
+    });
+  }).catch(function(error){
+    res.status(400).json({
+      status: "error",
+      error: error
     });
   });
 });

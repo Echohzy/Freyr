@@ -198,4 +198,21 @@ router.get("/accounts/:id/reviews.json", function(req, res) {
   });
 });
 
+
+router.get("/reviews/:id", function(req, res) {
+  fs.readFile(path.join(__dirname, "../api/review.json"), (err, data)=>{
+    if (err) {
+      res.status(404).json({
+        error: "document not found"
+      });
+    }
+    
+    let review = JSON.parse(data);
+    res.json({
+      review: review.data
+    });
+  });
+});
+
+
 module.exports = router;

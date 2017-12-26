@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+router.get("/reviews/:id", function(req, res, next) {
+  res.render('review', {title: 'Review', id: req.params.id });
+});
 
 router.get("/users/:id", function(req, res, next) {
   res.render('user', {title: 'User', id: req.params.id });

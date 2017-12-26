@@ -8,7 +8,8 @@ const entry_config  = {
     movie: "movie.js",
     book: "book.js",
     search: "search.js",
-    user: "user.js"
+    user: "user.js",
+    review: "review.js"
   },
   extra_in_each_entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'

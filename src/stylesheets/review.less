@@ -1,0 +1,46 @@
+@import 'base.less';
+
+.review-container {
+    padding-top: 50px;
+    .cover-block{
+        height: 300px;
+        overflow: hidden;
+        img{
+            width: 100%;
+        }
+    }
+    .review-detail {
+        padding: 40px 10px;
+        .info {
+            display: flex;
+            align-items: center;
+            color: @warm-grey;
+            font-size: 16px;
+            .date{
+                flex: 1;
+            }
+            .author{
+                .border-radius(20px);
+                overflow: hidden;
+                height: 40px;
+                width: 40px;
+            }
+        }
+        .title{
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: @dark;
+        }
+        .detail{
+            margin-top: 15px;
+            color: @deep-grey;
+            font-size: 14px;
+        }
+        .detail:first-letter {
+            font-size: 36px;
+            float: left;
+            margin-right: 4px;
+        }
+    }
+}

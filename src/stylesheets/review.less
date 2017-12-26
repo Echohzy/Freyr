@@ -10,7 +10,7 @@
         }
     }
     .review-detail {
-        padding: 40px 10px;
+        padding: 40px 10px 20px;
         .info {
             display: flex;
             align-items: center;
@@ -18,6 +18,15 @@
             font-size: 16px;
             .date{
                 flex: 1;
+            }
+            .score{
+                color: @yellow;
+                .fa + .fa{
+                    margin-left: 4px;
+                }
+            }
+            .middle {
+                margin: 0 10px;
             }
             .author{
                 .border-radius(20px);
@@ -41,6 +50,81 @@
             font-size: 36px;
             float: left;
             margin-right: 4px;
+        }
+    }
+    .comment-list {
+        padding: 0 10px;
+        h1{
+            font-size: 16px;
+            color: @main-theme;
+            font-weight: bold;
+        }
+        .comment-block {
+            padding: 20px 0;
+            display: flex;
+            .avatar-wrapper{
+                width: 50px;
+                img{
+                    .border-radius(20px);
+                }
+            }
+            .comment-info{
+                position: relative;
+                flex: 1;
+                .nickname{
+                    font-size: 14px;
+                    color: @dark;
+                    font-weight: bold;
+                }
+                p {
+                    font-size: 14px;
+                    color: @dark;
+                    margin: 10px 0;
+                }
+                .date{
+                    color: @warm-grey;
+                }
+                button{
+                    float: right;
+                    border: none;
+                    background: none;
+                    outline: none;
+                    font-size: 14px;
+                    margin-top: 4px;
+                }
+                .menu{
+                    display: none;
+                    width: 50px;
+                    font-size: 12px;
+                    position: absolute;
+                    background: rgba(0,0,0, 0.6);
+                    color: @white;
+                    right: -10px;
+                    top: 22px;
+
+                    li{
+                        padding: 4px 0;
+                        text-align: center;
+                    }
+                    .triangle{
+                        position: absolute;
+                        border-width: 6px;
+                        border-style: solid;
+                        border-color: transparent transparent  rgba(0,0,0,0.6) transparent;
+                        top: -12px;
+                        left: 22px;
+                    }
+                }
+                
+                button:focus{
+                    .menu{
+                        display: block;
+                    }
+                }
+            }
+        }
+        .comment-block + .comment-block{
+            border-top: 1px solid @cloudy-blue;
         }
     }
 }

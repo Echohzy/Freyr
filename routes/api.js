@@ -214,5 +214,21 @@ router.get("/reviews/:id", function(req, res) {
   });
 });
 
+router.get("/reviews/:id/comments.json", function(req, res) {
+  fs.readFile(path.join(__dirname, "../api/comments.json"), (err, data)=>{
+    if (err) {
+      res.status(404).json({
+        error: "document not found"
+      });
+    }
+
+    let comments = JSON.parse(data);
+
+    res.json({
+      comments: comments.data
+    });
+  });
+});
+
 
 module.exports = router;

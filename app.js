@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var account = require('./routes/account');
+var movieReview = require('./routes/movie_review');
 var webpackDevMiddleware = require("webpack-dev-middleware");
 var webpack = require("webpack");
 var webpackConfig = require("./webpack/webpack.config");
@@ -32,7 +33,7 @@ app.use(express.static(path.join(__dirname, '/src')));
 //    publicPath: webpackConfig.output.publicPath
 // }));
 // app.use(require("webpack-hot-middleware")(compiler));
-app.use("/api", account);
+app.use("/api", movieReview);
 app.use('/', routes);
 
 // catch 404 and forward to error handler

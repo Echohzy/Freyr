@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var api = require('./routes/api');
+var account = require('./routes/account');
 var webpackDevMiddleware = require("webpack-dev-middleware");
 var webpack = require("webpack");
 var webpackConfig = require("./webpack/webpack.config");
@@ -28,11 +28,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/src')));
-app.use(webpackDevMiddleware(compiler,{
-   publicPath: webpackConfig.output.publicPath
-}));
-app.use(require("webpack-hot-middleware")(compiler));
-app.use("/api", api);
+// app.use(webpackDevMiddleware(compiler,{
+//    publicPath: webpackConfig.output.publicPath
+// }));
+// app.use(require("webpack-hot-middleware")(compiler));
+app.use("/api", account);
 app.use('/', routes);
 
 // catch 404 and forward to error handler

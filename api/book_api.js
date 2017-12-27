@@ -1,19 +1,20 @@
 var AV = require('leancloud-storage');
 
-module.exports.addAccount = function(params) {
-  var Account = AV.Object.extend('Account');
-  var account = new Account();
-  account.set("nickname", params.nickname);
-  account.set("avatar", params.avatar);
-  return account.save().then(function(data) {
+module.exports.addBook = function(params) {
+  var Book = AV.Object.extend('Book');
+  var book = new Book();
+  for (var k in params) {
+    book.set(k, params[k]);
+  }
+  return book.save().then(function(data) {
     return Promise.resolve(data);
   }, function(err){
     return Promise.reject(err);
   });
 };
 
-module.exports.getAccount = function(id) {
-  var query = new AV.Query('Account');
+module.exports.getBook = function(id) {
+  var query = new AV.Query('Book');
    query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
    return query.first().then(function(result){
       return Promise.resolve(result);
@@ -22,14 +23,14 @@ module.exports.getAccount = function(id) {
    });
 };
 
-module.exports.updateAccount = function(id, params) {
-  var query = new AV.Query('Account');
+module.exports.updateBook = function(id, params) {
+  var query = new AV.Query('Book');
   query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
-  return query.first().then(function(account){
+  return query.first().then(function(book){
     for( var k in params ) {
-      account.set(k, params[k]);
+      book.set(k, params[k]);
     }
-    return account.save().then(function(data){
+    return book.save().then(function(data){
       return Promise.resolve(data);
     }).catch(function(error) { 
       return Promise.reject(error);

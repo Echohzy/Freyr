@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var AccountApi = require("../api/account_api");
+var MovieApi = require("../api/movie_api");
 
 
 /*create account*/
-router.post("/accounts", function(req, res) {
-  AccountApi.addAccount(req.body).then(function(data){
+router.post("/movies", function(req, res) {
+  MovieApi.addMovie(req.body).then(function(data){
     res.json({
       status: 'success',
       data: data
@@ -20,8 +20,8 @@ router.post("/accounts", function(req, res) {
 });
 
 /*get account*/
-router.get("/accounts/:id", function(req, res) {
-  AccountApi.getAccount(req.params.id).then(function(data){
+router.get("/movies/:id", function(req, res) {
+  MovieApi.getMovie(req.params.id).then(function(data){
     res.json({
       status: "success",
       data: data
@@ -36,8 +36,8 @@ router.get("/accounts/:id", function(req, res) {
 
 
 /*update account*/
-router.put("/accounts/:id", function(req, res) {
-  AccountApi.updateAccount(req.params.id, req.body).then(function(data) {
+router.put("/movies/:id", function(req, res) {
+  MovieApi.updateMovie(req.params.id, req.body).then(function(data) {
     res.json({
       status: 'success',
       data: data
@@ -52,8 +52,8 @@ router.put("/accounts/:id", function(req, res) {
 
 
 /*delete account*/
-router.delete("/accounts/:id", function(req, res) {
-  AccountApi.updateAccount(req.params.id, {"deleted": true}).then(function(data) {
+router.delete("/movies/:id", function(req, res) {
+  MovieApi.updateMovie(req.params.id, {"deleted": true}).then(function(data) {
     res.json({
       status: 'success'
     });

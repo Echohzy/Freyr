@@ -1,22 +1,22 @@
 var AV = require('leancloud-storage');
 
-module.exports.addMovieReview = function(params) {
-  var movieReview = new AV.Object('MovieReview');
-  movieReview.set('title', params.title);
-  movieReview.set('content', params.content);
-  movieReview.set('score', 1);
+module.exports.addBookReview = function(params) {
+  var bookReview = new AV.Object('BookReview');
+  bookReview.set('title', params.title);
+  bookReview.set('content', params.content);
+  bookReview.set('score', params.score);
   var author = AV.Object.createWithoutData('Account', params.account_id);
-  var movie = AV.Object.createWithoutData('Movie', params.movie_id);
-  movieReview.set('author', author);
-  movieReview.set('movie', movie);
-  return movieReview.save().then(function(data){
+  var book = AV.Object.createWithoutData('Movie', params.book_id);
+  bookReview.set('author', author);
+  bookReview.set('book', book);
+  return bookReview.save().then(function(data){
     return data.toJSON();
   });
 };
 
-module.exports.getMovieReview = function(id) {
+module.exports.getBookReview = function(id) {
 
-  var query = new AV.Query('MovieReview');
+  var query = new AV.Query('BookReview');
   query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
   return query.first().then(function(result){
     try {
@@ -25,20 +25,20 @@ module.exports.getMovieReview = function(id) {
     } catch (e) {
       return Promise.reject('can not found');
     }
-  }).then(function(movieReview){
+  }).then(function(bookReview){
     var accountQuery = new AV.Query('Account');
-    return accountQuery.get(movieReview.author.objectId).then(function(account) {
-      movieReview.author = {
+    return accountQuery.get(bookReview.author.objectId).then(function(account) {
+      bookReview.author = {
         id: account.get('id'),
         nickanme: account.get('nickname'),
         avatar: account.get('avatar')
       };
-      return movieReview;
+      return bookReview;
     });
-  }).then(function(movieReview) {
+  }).then(function(bookReview) {
     var movieQuery = new AV.Query('Movie');
-    return  movieQuery.get(movieReview.movie.objectId).then(function(movie) {
-      movieReview.movie = {
+    return  movieQuery.get(bookReview.movie.objectId).then(function(movie) {
+      bookReview.movie = {
         name: movie.get('name'),
         original_name: movie.get('original_name'),
         cate: movie.get('cate'),
@@ -46,13 +46,13 @@ module.exports.getMovieReview = function(id) {
         user_review_count: movie.get('user_review_count'),
         summary: movie.get('summary')
       };
-      return movieReview;
+      return bookReview;
     });
   });
 };
 
-module.exports.updateMovieReview = function(id, params) {
-  var query = new AV.Query('MovieReview');
+module.exports.updateBookReview = function(id, params) {
+  var query = new AV.Query('BookReview');
   query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
   return query.first().then(function(account){
     for( var k in params ) {

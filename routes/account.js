@@ -5,7 +5,7 @@ var AccountApi = require("../api/account_api");
 
 
 /*create account*/
-router.post("/accounts", function(req, res) {
+router.post("/", function(req, res) {
   AccountApi.addAccount(req.body).then(function(data){
     res.json({
       status: 'success',
@@ -20,7 +20,7 @@ router.post("/accounts", function(req, res) {
 });
 
 /*get account*/
-router.get("/accounts/:id", function(req, res) {
+router.get("/:id", function(req, res) {
   AccountApi.getAccount(req.params.id).then(function(data){
     res.json({
       status: "success",
@@ -36,7 +36,7 @@ router.get("/accounts/:id", function(req, res) {
 
 
 /*update account*/
-router.put("/accounts/:id", function(req, res) {
+router.put("/:id", function(req, res) {
   AccountApi.updateAccount(req.params.id, req.body).then(function(data) {
     res.json({
       status: 'success',
@@ -52,7 +52,7 @@ router.put("/accounts/:id", function(req, res) {
 
 
 /*delete account*/
-router.delete("/accounts/:id", function(req, res) {
+router.delete("/:id", function(req, res) {
   AccountApi.updateAccount(req.params.id, {"deleted": true}).then(function(data) {
     res.json({
       status: 'success'

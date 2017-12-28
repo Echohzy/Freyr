@@ -5,7 +5,7 @@ var MovieApi = require("../api/movie_api");
 
 
 /*create account*/
-router.post("/movies", function(req, res) {
+router.post("/", function(req, res) {
   MovieApi.addMovie(req.body).then(function(data){
     res.json({
       status: 'success',
@@ -20,14 +20,14 @@ router.post("/movies", function(req, res) {
 });
 
 /*get account*/
-router.get("/movies/:id", function(req, res) {
+router.get("/:id", function(req, res) {
   MovieApi.getMovie(req.params.id).then(function(data){
     res.json({
       status: "success",
       data: data
     });
   }).catch(function(error){
-    res.status(400).json({
+    res.status(404).json({
       status: 'error',
       error: error
     });
@@ -36,7 +36,7 @@ router.get("/movies/:id", function(req, res) {
 
 
 /*update account*/
-router.put("/movies/:id", function(req, res) {
+router.put("/:id", function(req, res) {
   MovieApi.updateMovie(req.params.id, req.body).then(function(data) {
     res.json({
       status: 'success',
@@ -52,7 +52,7 @@ router.put("/movies/:id", function(req, res) {
 
 
 /*delete account*/
-router.delete("/movies/:id", function(req, res) {
+router.delete("/:id", function(req, res) {
   MovieApi.updateMovie(req.params.id, {"deleted": true}).then(function(data) {
     res.json({
       status: 'success'

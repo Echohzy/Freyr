@@ -5,9 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
+var page = require('./routes/page');
+
+
+
 var account = require('./routes/account');
+var movie = require('./routes/movie');
 var movieReview = require('./routes/movie_review');
+var notification = require('./routes/notification');
+
+
 var webpackDevMiddleware = require("webpack-dev-middleware");
 var webpack = require("webpack");
 var webpackConfig = require("./webpack/webpack.config");
@@ -33,8 +40,11 @@ app.use(express.static(path.join(__dirname, '/src')));
 //    publicPath: webpackConfig.output.publicPath
 // }));
 // app.use(require("webpack-hot-middleware")(compiler));
-app.use("/api", movieReview);
-app.use('/', routes);
+app.use("/api/accounts", account);
+app.use("/api/movies", movie);
+app.use("/api/movie_reviews", movieReview);
+app.use("/api/notifications", notification);
+app.use('/', page);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

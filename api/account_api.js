@@ -1,14 +1,12 @@
 var AV = require('leancloud-storage');
 
 module.exports.addAccount = function(params) {
-  var Account = AV.Object.extend('Account');
-  var account = new Account();
-  account.set("nickname", params.nickname);
-  account.set("avatar", params.avatar);
+  var account = new AV.Object('Account');
+  for (var k in params) {
+    account.set(k, params[k]);
+  }
   return account.save().then(function(data) {
-    return Promise.resolve(data);
-  }, function(err){
-    return Promise.reject(err);
+    return data.toJSON();
   });
 };
 
@@ -16,9 +14,12 @@ module.exports.getAccount = function(id) {
   var query = new AV.Query('Account');
    query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
    return query.first().then(function(result){
-      return Promise.resolve(result);
-   }, function(error) { 
-      return Promise.reject(error);
+      try {
+        var res = result.toJSON();
+        return res;
+      } catch(e) {
+        return Promise.reject('can not found');
+      }
    });
 };
 
@@ -26,15 +27,15 @@ module.exports.updateAccount = function(id, params) {
   var query = new AV.Query('Account');
   query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
   return query.first().then(function(account){
-    for( var k in params ) {
-      account.set(k, params[k]);
+    try {
+      for( var k in params ) {
+        account.set(k, params[k]);
+      }
+      return account.save().then(function(data){
+        return data.toJSON();
+      });
+    } catch(e) {
+      return Promise.error('can not found');
     }
-    return account.save().then(function(data){
-      return Promise.resolve(data);
-    }).catch(function(error) { 
-      return Promise.reject(error);
-    });
-  }).catch(function(error){
-    return Promise.reject(error);
   });
 };

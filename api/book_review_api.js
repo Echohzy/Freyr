@@ -6,7 +6,7 @@ module.exports.addBookReview = function(params) {
   bookReview.set('content', params.content);
   bookReview.set('score', params.score);
   var author = AV.Object.createWithoutData('Account', params.account_id);
-  var book = AV.Object.createWithoutData('Movie', params.book_id);
+  var book = AV.Object.createWithoutData('Book', params.book_id);
   bookReview.set('author', author);
   bookReview.set('book', book);
   return bookReview.save().then(function(data){

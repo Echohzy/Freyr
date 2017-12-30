@@ -13,6 +13,7 @@ var account = require('./routes/account');
 var movie = require('./routes/movie');
 var movieReview = require('./routes/movie_review');
 var notification = require('./routes/notification');
+var book = require('./routes/book');
 
 
 var webpackDevMiddleware = require("webpack-dev-middleware");
@@ -44,6 +45,7 @@ app.use("/api/accounts", account);
 app.use("/api/movies", movie);
 app.use("/api/movie_reviews", movieReview);
 app.use("/api/notifications", notification);
+app.use("/api/books", book);
 app.use('/', page);
 
 // catch 404 and forward to error handler

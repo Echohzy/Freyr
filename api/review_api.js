@@ -2,7 +2,6 @@ var AV = require('leancloud-storage');
 var _ = require('lodash');
 
 module.exports.addReview = function(params) {
-  console.log(params);
   var review = new AV.Object('Review');
   review.set('title', params.title);
   review.set('content', params.content);

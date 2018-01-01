@@ -5,12 +5,9 @@ module.exports.addCollection = function(params) {
   collection.set('collection_type', params.collection_type);
   var user = AV.Object.createWithoutData('Account', params.user_id);
   collection.set('user', user);
-  if (params.movie_review_id) {
-    var movie_review = AV.Object.createWithoutData('MovieReview', params.movie_review_id);
-    collection.set('movie', movie_review);
-  } else if (params.book_review_id) {
-    var book_review = AV.Object.createWithoutData('BookReview', params.bok_review_id);
-    collection.set('book', book_review);
+  if (params.review_id) {
+    var review = AV.Object.createWithoutData('Review', params.review_id);
+    collection.set('review', review);
   }
   return collection.save().then(function(data){
     return data.toJSON();
@@ -20,8 +17,7 @@ module.exports.addCollection = function(params) {
 module.exports.getCollectionsByUser = function(account_id) {
   var query = new AV.Query('Collection');
   query.contais('user', account_id).notEqualTo('deleted', true);
-  
-  return query.first().then(function(results){
+  return query.then(function(results){
     return results.toJSON();
   });
 }

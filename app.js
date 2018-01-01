@@ -14,6 +14,8 @@ var movie = require('./routes/movie');
 var movieReview = require('./routes/movie_review');
 var notification = require('./routes/notification');
 var book = require('./routes/book');
+var bookReview = require('./routes/book_review');
+var review = require('./routes/review');
 
 
 var webpackDevMiddleware = require("webpack-dev-middleware");
@@ -43,9 +45,9 @@ app.use(express.static(path.join(__dirname, '/src')));
 // app.use(require("webpack-hot-middleware")(compiler));
 app.use("/api/accounts", account);
 app.use("/api/movies", movie);
-app.use("/api/movie_reviews", movieReview);
 app.use("/api/notifications", notification);
 app.use("/api/books", book);
+app.use('/api/reviews', review);
 app.use('/', page);
 
 // catch 404 and forward to error handler

@@ -1,0 +1,35 @@
+@import '../base.less';
+
+.text-input-box {
+  padding: 0 30px;
+  display: flex;
+  font-size: 16px;
+  color: @deep-grey;
+  line-height: 30px;
+  height: 70px;
+  .name-box{
+    width: 100px;
+    text-align: right;
+    padding-right: 10px;
+    line-height: 34px;
+    .star{
+      color: @main-theme;
+    }
+  }
+  .content-box{
+    flex: 1;
+    input{
+      box-sizing: border-box;
+      line-height:20px;
+      padding: 6px;
+      width: 100%;
+      border: 1px solid @text-light;
+    }
+    input.editing{
+      outline: @main-theme;
+    }
+    .hint{
+      font-size: 12px;
+    }
+  }
+}

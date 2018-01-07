@@ -38,10 +38,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/src')));
-// app.use(webpackDevMiddleware(compiler,{
-//    publicPath: webpackConfig.output.publicPath
-// }));
-// app.use(require("webpack-hot-middleware")(compiler));
+app.use(webpackDevMiddleware(compiler,{
+   publicPath: webpackConfig.output.publicPath
+}));
+app.use(require("webpack-hot-middleware")(compiler));
 app.use("/api/accounts", account);
 app.use("/api/movies", movie);
 app.use("/api/notifications", notification);

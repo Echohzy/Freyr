@@ -15,7 +15,7 @@ module.exports.addComment = function(params) {
 module.exports.getCommentsByReview = function(review_id) {
   var query = new AV.Query('Comment');
   query.contais('review', review_id).notEqualTo('deleted', true);
-  return query.then(function(results){
+  return query.find().then(function(results){
     return results.toJSON();
   });
 }

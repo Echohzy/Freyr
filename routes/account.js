@@ -3,19 +3,23 @@ var router = express.Router();
 
 var AccountApi = require("../api/account_api");
 
-
-/*create account*/
-router.post("/", function(req, res) {
-  AccountApi.addAccount(req.body).then(function(data){
-    res.json({
-      status: 'success',
-      data: data
-    });
-  }).catch(function(error){
+// sign up
+router.post('/sign_up', function(req, res) {
+  AccountApi.signup(req.body).then(function(current_user){
+    res.cookie('username', current_user.username, { expires: new Date(Date.now() + 900000), httpOnly: true })
+  }).catch(function(error) {
     res.status(400).json({
-      status: "error",
       error: error
     });
+  });
+});
+
+// login 
+router.post('/login', function(req, res) {
+  AccountApi.login(req.body).then(function(current_user) {
+    res.cookie('username', current_user.username, { expires: new Date(Date.now() + 900000), httpOnly: true });
+    res.cookie('avatar', current_user.avatar, {expires: new Date(Date.now() + 900000), httpOnly: true });
+    res.cookie('id', current_user.id, {expires: new Date(Date.now() + 900000), httpOnly: true });
   });
 });
 

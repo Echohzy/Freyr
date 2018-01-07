@@ -1,14 +1,19 @@
 var AV = require('leancloud-storage');
 
-module.exports.addAccount = function(params) {
-  var account = new AV.Object('Account');
-  for (var k in params) {
-    account.set(k, params[k]);
-  }
-  return account.save().then(function(data) {
-    return data.toJSON();
+module.exports.signup = function(params) {
+  var user = new AV.User();
+  user.setUsername(params.username);
+  user.setPassword(params.password);
+  user.signUp().then(function(loginedUser){
+    return loginedUser.toJSON();
   });
 };
+
+module.exports.login = function(params) {
+  return AV.User.logIn(params.username, params.password).then(function(current_user){
+    return current_user.toJSON();
+  });
+}
 
 module.exports.getAccount = function(id) {
   var query = new AV.Query('Account');

@@ -5,6 +5,10 @@ router.get("/notifications", function(req, res, next){
   res.render('notification', {title: 'Notification' });
 });
 
+router.get("/sign_up", function(req, res, next){
+  res.render('sign_up', {title: 'Sign Up' });
+});
+
 router.get("/reviews/:id", function(req, res, next) {
   res.render('review', {title: 'Review', id: req.params.id });
 });

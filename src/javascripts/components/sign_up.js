@@ -4,7 +4,10 @@ import React, { Component } from 'react';
 
 import TextInput from './text_input';
 
+import wrappedInput from './text_input_wrapper';
+
 import "../../stylesheets/sign_up.less";
+
 
 const attr_settings = {
   username: {
@@ -34,19 +37,10 @@ const attr_settings = {
     label: "邮箱"
   }
 };
-export default class SignUp extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
-    this.state =  this.getInitAttrs();
-  }
-  getInitAttrs(){
-    let attrs = {};
-    for (let k in attr_settings) {
-      attrs[k] = {
-        value: attr_settings[k].defaultValue||""
-      }
-    }
-    return attrs;
+    this.state =  this.props.getInitAttrs(attr_settings);
   }
   onTextValueChange(attr, value) {
     this.setState({[attr]: value});
@@ -54,10 +48,22 @@ export default class SignUp extends Component {
   render() {
     return (
       <div className="sign-up-container">
-        <TextInput {...this.state.email} {...attr_settings.email} onTextChange={(value)=>this.onTextValueChange('email', value)}/>
-        <TextInput {...this.state.username} {...attr_settings.username} onTextChange={(value)=>this.onTextValueChange('username', value)}/>
-        <TextInput {...this.state.password} {...attr_settings.password} onTextChange={(value)=>this.onTextValueChange('password', value)}/>
-        <TextInput {...this.state.password_confirm} {...attr_settings.password_confirm} onTextChange={(value)=>this.onTextValueChange('password_confirm', value)}/>
+        <TextInput 
+          {...this.state.email}
+          {...attr_settings.email}
+          onTextChange={(value)=>this.onTextValueChange('email', value)}/>
+        <TextInput
+          {...this.state.username}
+          {...attr_settings.username}
+          onTextChange={(value)=>this.onTextValueChange('username', value)}/>
+        <TextInput
+          {...this.state.password}
+          {...attr_settings.password}
+          onTextChange={(value)=>this.onTextValueChange('password', value)}/>
+        <TextInput
+          {...this.state.password_confirm}
+          {...attr_settings.password_confirm} 
+          onTextChange={(value)=>this.onTextValueChange('password_confirm', value)}/>
         <div className="form-action">
           <button className="submit">注册</button>
         </div>
@@ -65,3 +71,5 @@ export default class SignUp extends Component {
     );
   }
 }
+
+export default wrappedInput(SignUp);

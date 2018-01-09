@@ -3,16 +3,9 @@ import React, { Component } from 'react';
 export default class TextInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      status: ""
-    };
-  }
-  onTextFocus(){
-    this.setState({status: 'editing'});
   }
   render() {
-    const { defaultValue, value, label, type, required } = this.props;
-    const { status } = this.state;
+    const { value, label, type, required, status } = this.props;
     return (
       <div className="text-input-box">
         <div className="name-box">
@@ -24,7 +17,7 @@ export default class TextInput extends Component {
             }
         </div>
         <div className="content-box">
-          <input className={status} onFocus={()=>this.onTextFocus()} onBlur={()=>this.onTextBlur()} onChange={} type={type||"text"} value={defaultValue||value} onChange={this.props.onTextChange} />
+          <input className={status} type={type||"text"} value={value}  />
           {
             status==='editing'?<span className="hint edit-hint">{this.props.editHint}</span>:""
           }

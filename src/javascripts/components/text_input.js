@@ -4,6 +4,27 @@ export default class TextInput extends Component {
   constructor(props) {
     super(props);
   }
+  onFocus(){
+    const { value } = this.props;
+    this.props.onTextChange({value: value, status: "editing"});
+  }
+  onBlur(){
+    const { required, value, validation } = this.props;
+    const toString = Object.prototype.toString;
+    let attr = {value: value};
+    if(required&&!value){
+      attr.status = "error";
+    } else if (validation) {
+      if (toString.call(validation)==="[object RegExp]") {
+        attr.status = validation.test(value)?"passed":"error";
+      } else if(toString.call(validation)==="[object Function]") {
+        attr.status = validation(value)?"passed":"error";
+      }
+    } else {
+      attr.status = "passed";
+    }
+    this.props.onTextChange(attr);
+  }
   render() {
     const { value, label, type, required, status } = this.props;
     return (
@@ -17,7 +38,7 @@ export default class TextInput extends Component {
             }
         </div>
         <div className="content-box">
-          <input className={status} type={type||"text"} value={value}  />
+          <input className={status} type={type||"text"} value={value} onFocus={()=>this.onFocus()} onBlur={()=>this.onBlur()}/>
           {
             status==='editing'?<span className="hint edit-hint">{this.props.editHint}</span>:""
           }

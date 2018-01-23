@@ -14,9 +14,12 @@ export default function wrappedInput(WrappedComponent) {
       }
       return attrs;
     }
+    onTextValueChange(attr, value) {
+      this.setState({[attr]: value});
+    }
     render(){
       return (
-        <WrappedComponent getInitAttrs={this.getInitAttrs}/>
+        <WrappedComponent getInitAttrs={this.getInitAttrs} />
       );
     }
   }

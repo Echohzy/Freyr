@@ -25,6 +25,9 @@ export default class TextInput extends Component {
     }
     this.props.onTextChange(attr);
   }
+  onChange(evt){
+    this.props.onTextChange({status: "editing", value: evt.target.value});
+  }
   render() {
     const { value, label, type, required, status } = this.props;
     return (
@@ -38,12 +41,17 @@ export default class TextInput extends Component {
             }
         </div>
         <div className="content-box">
-          <input className={status} type={type||"text"} value={value} onFocus={()=>this.onFocus()} onBlur={()=>this.onBlur()}/>
+          <input className={status} 
+            type={type||"text"} 
+            value={value} 
+            onFocus={()=>this.onFocus()} 
+            onBlur={()=>this.onBlur()}
+            onChange={(evt)=>this.onChange(evt)}/>
           {
-            status==='editing'?<span className="hint edit-hint">{this.props.editHint}</span>:""
+            status==='editing'?<span className="hint edit-hint"><i className="fa fa-exclamation-triangle" />{this.props.editHint}</span>:""
           }
           {
-            status==='error'?<span className="hint error-hint">{this.props.errorHint}</span>:""
+            status==='error'?<span className="hint error-hint"><i className="fa fa-times-circle" />{this.props.errorHint}</span>:""
           }
         </div>
       </div>

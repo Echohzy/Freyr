@@ -1,6 +1,6 @@
 'use strict';
 
-export default const FormSetting = {
+const FormSetting = {
   username: {
     required: true,
     editHint:"用户名由字母和下划线组成",
@@ -29,3 +29,5 @@ export default const FormSetting = {
     label: "邮箱"
   }
 };
+
+export default FormSetting;

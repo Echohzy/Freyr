@@ -29,6 +29,9 @@ class SignUp extends Component {
   render() {
     return (
       <div className="form-container">
+        <div className="logo-wrapper">
+          <img src=".././images/logo2.png"/>
+        </div>
         <TextInput 
           {...this.state.email}
           {...attr_settings.email}

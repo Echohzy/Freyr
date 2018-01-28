@@ -4,7 +4,8 @@ module.exports.signup = function(params) {
   var user = new AV.User();
   user.setUsername(params.username);
   user.setPassword(params.password);
-  user.signUp().then(function(loginedUser){
+  user.setEmail(params.email);
+  return user.signUp().then(function(loginedUser){
     return loginedUser.toJSON();
   });
 };

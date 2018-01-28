@@ -8,6 +8,8 @@ import wrappedInput from './text_input_wrapper';
 
 import FormSetting from '../utils/form_setting';
 
+import axios from 'axios';
+
 import "../../stylesheets/form.less";
 
 
@@ -26,11 +28,39 @@ class SignUp extends Component {
   onTextValueChange(attr, value) {
     this.setState({[attr]: value});
   }
+  onPasswordConfirm(password_confirm){
+    return this.state.password.value===password_confirm;
+  }
+  onSignUpUser(){
+    let passed = true;
+    var data = {};
+    Object.keys(attr_settings).map((attr)=>{
+      if(this.state[attr].status!=="passed"){
+        passed = false
+      } else {
+        data[attr] = this.state[attr].value;
+      }
+    });
+    if (!passed) {
+      return;
+    }
+    axios({
+      method: "post",
+      url: "/api/accounts/sign_up",
+      data: data
+    }).then(function(res){
+      return res.data;
+    }).then(function(data){
+      
+    }).catch(function(){
+      
+    });
+  }
   render() {
     return (
       <div className="form-container">
         <div className="logo-wrapper">
-          <img src=".././images/logo2.png"/>
+          <img src="../../images/logo2.png"/>
         </div>
         <TextInput 
           {...this.state.email}
@@ -46,10 +76,11 @@ class SignUp extends Component {
           onTextChange={(value)=>this.onTextValueChange('password', value)}/>
         <TextInput
           {...this.state.password_confirm}
-          {...attr_settings.password_confirm} 
+          {...attr_settings.password_confirm}
+          validation={(value)=>this.onPasswordConfirm(value)}
           onTextChange={(value)=>this.onTextValueChange('password_confirm', value)}/>
         <div className="form-action">
-          <button className="submit">注册</button>
+          <button className="submit" onClick={()=>this.onSignUpUser()}>注册</button>
         </div>
       </div>
     );

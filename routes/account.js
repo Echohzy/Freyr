@@ -6,9 +6,16 @@ var AccountApi = require("../api/account_api");
 // sign up
 router.post('/sign_up', function(req, res) {
   AccountApi.signup(req.body).then(function(current_user){
-    res.cookie('username', current_user.username, { expires: new Date(Date.now() + 900000), httpOnly: true })
+    res.cookie('username', current_user.username, { expires: new Date(Date.now() + 900000), httpOnly: true });
+    res.cookie('avatar', current_user.avatar, { expires: new Date(Date.now() + 900000), httpOnly: true });
+    res.cookie('id', current_user.id, { expires: new Date(Date.now() + 900000), httpOnly: true });
+    res.json({
+      status: "success",
+      user: current_user
+    });
   }).catch(function(error) {
     res.status(400).json({
+      status: "error",
       error: error
     });
   });
@@ -20,6 +27,15 @@ router.post('/login', function(req, res) {
     res.cookie('username', current_user.username, { expires: new Date(Date.now() + 900000), httpOnly: true });
     res.cookie('avatar', current_user.avatar, {expires: new Date(Date.now() + 900000), httpOnly: true });
     res.cookie('id', current_user.id, {expires: new Date(Date.now() + 900000), httpOnly: true });
+    res.json({
+      status: "success",
+      user: current_user
+    });
+  }).catch(function(error){
+    res.status(400).json({
+      status: "error",
+      error: error
+    });
   });
 });
 

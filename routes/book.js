@@ -31,6 +31,20 @@ router.get('/:id',function (req, res){
   });
 });
 
+router.get("/", function (req, res){
+  BookApi.getBooks().then(function(data){
+    res.json({
+      status: 'success',
+      data: data
+    });
+  }).catch(function(error){
+    res.status(404).json({
+      status: "error",
+      error: error
+    });
+  });
+});
+
 router.delete('/:id', function(req, res) {
   BookApi.updateBook(req.params.id, {'deleted': true}).then(function(data) {
     res.json({

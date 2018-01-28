@@ -30,10 +30,10 @@ export default class HomeList extends Component {
     }
     const { type } = this.props;
     this.setState({ requesting: true });
-    axios.get("/api/hot_" + type + ".json").then((res)=>{
+    axios.get("/api/" + type).then((res)=>{
       return res.data;
     }).then((data)=>{
-      this.setState({requesting: false, data: data[type]});
+      this.setState({requesting: false, data: data.data});
     });
   }
   renderLoadingBlock() {

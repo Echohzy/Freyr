@@ -10,7 +10,7 @@ import FormSetting from '../utils/form_setting';
 
 import "../../stylesheets/form.less";
 
-const attr_setting = {
+const attr_settings = {
   username: FormSetting.username,
   password: FormSetting.password
 };
@@ -18,7 +18,7 @@ const attr_setting = {
 class SignIn extends Component {
   constructor(props){
     super(props);
-    this.state = this.props.getInitAttrs(attr_setting);
+    this.state = this.props.getInitAttrs(attr_settings);
   }
   onTextValueChange(attr, value) {
     this.setState({[attr]: value});
@@ -26,10 +26,13 @@ class SignIn extends Component {
   render(){
     return (
       <div className="form-container">
+        <div className="logo-wrapper">
+          <img src="../../images/logo2.png"/>
+        </div>
         <TextInput
           {...this.state.username}
           {...attr_settings.username}
-          onTextValueChange={(value)=>this.onTextValueChnage('username', value)}/>
+          onTextChange={(value)=>this.onTextValueChange('username', value)}/>
         <TextInput
           {...this.state.password}
           {...attr_settings.password}

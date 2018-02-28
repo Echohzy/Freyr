@@ -11,7 +11,8 @@ const entry_config  = {
     user: "user.js",
     review: "review.js",
     notification: "notification.js",
-    sign_up: 'sign_up.js'
+    sign_up: 'sign_up.js',
+    sign_in: 'sign_in.js'
   },
   extra_in_each_entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'

@@ -9,6 +9,10 @@ router.get("/sign_up", function(req, res, next){
   res.render('sign_up', {title: 'Sign Up' });
 });
 
+router.get("/sign_in", function(req, res, next){
+  res.render('sign_in', {title: 'Sign In'});
+});
+
 router.get("/reviews/:id", function(req, res, next) {
   res.render('review', {title: 'Review', id: req.params.id });
 });

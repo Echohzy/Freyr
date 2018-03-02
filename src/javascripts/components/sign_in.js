@@ -8,6 +8,8 @@ import wrappedInput from './text_input_wrapper';
 
 import FormSetting from '../utils/form_setting';
 
+import axios from 'axios';
+
 import "../../stylesheets/form.less";
 
 const attr_settings = {
@@ -22,6 +24,29 @@ class SignIn extends Component {
   }
   onTextValueChange(attr, value) {
     this.setState({[attr]: value});
+  }
+  onSignIn(){
+    let passed = true;
+    var data = {};
+    Object.keys(attr_settings).map((attr)=>{
+      if(this.state[attr].status!=='passed'){
+        passed = false;
+      }else{
+        data[attr] = this.state[attr].value;
+      }
+    });
+    if(!passed){
+      return;
+    }
+    axios({
+      method: "post",
+      url: "/login",
+      data: data
+    }).then(function(res){
+
+    }).catch(function(error){
+
+    });
   }
   render(){
     return (

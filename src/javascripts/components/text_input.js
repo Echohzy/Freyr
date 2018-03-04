@@ -53,6 +53,9 @@ export default class TextInput extends Component {
           {
             status==='error'?<span className="hint error-hint"><i className="fa fa-times-circle" />{this.props.errorHint}</span>:""
           }
+          {
+            status==="request_error"?<span className="hint error-hint"><i className="fa fa-times-circle" />{this.props.request_error}</span>:""
+          }
         </div>
       </div>
     );

@@ -29,13 +29,26 @@ router.post('/login', function(req, res) {
     res.cookie('id', current_user.id, {expires: new Date(Date.now() + 900000), httpOnly: true });
     res.json({
       status: "success",
-      user: current_user
+      user: {
+        id: current_user.id,
+        avatar: current_user.avatar,
+        username: current_user.username
+      }
     });
   }).catch(function(error){
-    res.status(400).json({
-      status: "error",
-      error: error
-    });
+    if(error.code===211){
+      res.status(400).json({
+        status: "error",
+        error:{
+          attr: "username",
+          message: "用户名或密码错误"
+        }
+      });
+    } else {
+      res.status(400).json({
+        error: error
+      })
+    }
   });
 });
 

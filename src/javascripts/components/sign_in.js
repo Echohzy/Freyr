@@ -40,12 +40,15 @@ class SignIn extends Component {
     }
     axios({
       method: "post",
-      url: "/login",
+      url: "/api/accounts/login",
       data: data
-    }).then(function(res){
-
-    }).catch(function(error){
-
+    }).then((res)=>{
+  
+    }).catch((error)=>{
+      if(error.response&&error.response.data){
+        var err = error.response.data.error;
+        this.setState({[err.attr]: Object.assign({}, this.state[err.attr],{status:"request_error", request_error: err.message})});
+      }
     });
   }
   render(){
@@ -63,7 +66,7 @@ class SignIn extends Component {
           {...attr_settings.password}
           onTextChange={(value)=>this.onTextValueChange('password', value)}/>  
         <div className="form-action">
-          <button className="submit">登录</button>
+          <button className="submit" onClick={()=>this.onSignIn()}>登录</button>
         </div>
       </div>
     );

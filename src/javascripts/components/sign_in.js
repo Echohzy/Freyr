@@ -43,7 +43,7 @@ class SignIn extends Component {
       url: "/api/accounts/login",
       data: data
     }).then((res)=>{
-  
+      window.location.href = "/";
     }).catch((error)=>{
       if(error.response&&error.response.data){
         var err = error.response.data.error;

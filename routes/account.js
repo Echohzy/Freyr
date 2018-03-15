@@ -24,9 +24,9 @@ router.post('/sign_up', function(req, res) {
 // login 
 router.post('/login', function(req, res) {
   AccountApi.login(req.body).then(function(current_user) {
-    res.cookie('username', current_user.username, { expires: new Date(Date.now() + 900000), httpOnly: true });
-    res.cookie('avatar', current_user.avatar, {expires: new Date(Date.now() + 900000), httpOnly: true });
-    res.cookie('id', current_user.id, {expires: new Date(Date.now() + 900000), httpOnly: true });
+    res.cookie('username', current_user.username, { domain: '127.0.0.1', path:"/", expires: new Date((new Date()).getTime() + 10*3600000) });
+    res.cookie('avatar', current_user.avatar, { domain: '127.0.0.1', path:"/",expires: new Date(Date.now() + 900000) });
+    res.cookie('id', current_user.id, { domain: '127.0.0.1', path:"/",expires: new Date(Date.now() + 900000) });
     res.json({
       status: "success",
       user: {
@@ -57,7 +57,11 @@ router.get("/:id", function(req, res) {
   AccountApi.getAccount(req.params.id).then(function(data){
     res.json({
       status: "success",
-      data: data
+      account: {
+        avatar: data.avatar,
+        username: data.username,
+        id: data.id
+      }
     });
   }).catch(function(error){
     res.status(400).json({

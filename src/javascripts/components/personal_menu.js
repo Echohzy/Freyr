@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import axios from "axios";
 
+import { getItem } from '../utils/cookie';
+
 import "../../stylesheets/personal_menu.less";
 
 export default class PersonalMenu extends Component {
@@ -16,7 +18,8 @@ export default class PersonalMenu extends Component {
     this.getAccountInfo();
   }
   getAccountInfo(){
-    axios.get("/api/accounts/123").then(function(res){
+    var id = getItem("id");
+    axios.get("/api/accounts/"+id).then(function(res){
       return res.data;
     }).then((data)=>{
       this.setState({account: data.account});

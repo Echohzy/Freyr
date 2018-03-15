@@ -17,7 +17,7 @@ module.exports.login = function(params) {
 }
 
 module.exports.getAccount = function(id) {
-  var query = new AV.Query('Account');
+  var query = new AV.Query('_User');
    query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
    return query.first().then(function(result){
       try {
@@ -30,7 +30,7 @@ module.exports.getAccount = function(id) {
 };
 
 module.exports.updateAccount = function(id, params) {
-  var query = new AV.Query('Account');
+  var query = new AV.Query('_User');
   query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
   return query.first().then(function(account){
     try {

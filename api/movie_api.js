@@ -1,4 +1,5 @@
 var AV = require('leancloud-storage');
+var _ = require('lodash');
 
 module.exports.addMovie = function(params) {
   var movie = new AV.Object('Movie');
@@ -21,6 +22,22 @@ module.exports.getMovie = function(id) {
       }
    });
 };
+
+module.exports.getMovies = function(params){
+  var query = new AV.Query('Movie');
+  query.notEqualTo('deleted', true);
+  return query.find().then(function(movies){
+
+    try {
+      return movies.map(function(m){
+        var movie = m.toJSON();
+        return _.pick(movie, ["durations", "languages", "createdAt", "updatedAt", "tag", "post", "directors", "stars", "id", "original_name", "name", "types", "user_review_score", "cate"]);
+      });
+    } catch(e) {
+      return Promise.reject("can not found");
+    }
+  });
+}
 
 module.exports.updateMovie = function(id, params) {
   var query = new AV.Query('Account');

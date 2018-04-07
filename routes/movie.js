@@ -34,6 +34,20 @@ router.get("/:id", function(req, res) {
   });
 });
 
+/*get movies*/
+router.get("/", function(req, res){
+  MovieApi.getMovies(req.query).then(function(data){
+    res.json({
+      status: "success",
+      data: data
+    });
+  }).catch(function(error){
+    res.status(404).json({
+      status: 'error',
+      error: error
+    });
+  });
+});
 
 /*update account*/
 router.put("/:id", function(req, res) {

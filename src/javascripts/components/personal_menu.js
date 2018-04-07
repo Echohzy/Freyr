@@ -19,11 +19,13 @@ export default class PersonalMenu extends Component {
   }
   getAccountInfo(){
     var id = getItem("id");
-    axios.get("/api/accounts/"+id).then(function(res){
-      return res.data;
-    }).then((data)=>{
-      this.setState({account: data.account});
-    })
+    if(id){
+      axios.get("/api/accounts/"+id).then(function(res){
+        return res.data;
+      }).then((data)=>{
+        this.setState({account: data.account});
+      })
+    }
   }
   setVisible(value) {
     this.setState({visible: value});

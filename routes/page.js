@@ -33,6 +33,10 @@ router.get("/search", function(req, res, next) {
   res.render('search', { title: "Freyr" });
 });
 
+router.get("/todo", function(req, res, next){
+  res.render('todo', { title: "Todo" });
+});
+
 /* GET home page. */
 router.get(/[^\n]*/, function(req, res, next) {
   res.render('index', { title: 'Freyr' });

@@ -22,6 +22,7 @@ import Review from './pages/review.js';
 import User from './pages/user.js';
 import Notification from './pages/notification.js';
 import Editor from './pages/editor.js';
+import Book from './pages/book.js';
 
 import indexStore from './stores/index_store';
 import notificationStore from './stores/notification_store';
@@ -39,6 +40,7 @@ ReactDOM.render(
       <App>
         <Route  exact  path="/" component={Home}/>
         <Route path="/search" component={Search}/>
+        <Route path="/books/:id" component={Book}/>
         <Route path="/reviews/:id/draft" component={Editor} />
         <Route path="/reviews/new" component={Editor} />
         <Route path="/reviews/:id" component={Review} />

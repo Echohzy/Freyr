@@ -46,7 +46,7 @@ export default class PersonalMenu extends Component {
           </div>
           <ul className="user-menu">
             <li className="active"><i className="fa fa-commenting-o" /><span>我的消息</span></li>
-            <li><i className="fa fa-heart-o" /><span>我的收藏</span></li>
+            <li><i className="fa fa-heart-o" /><span>我的借阅</span></li>
             <li><i className="fa fa-cog" /><span>设置</span></li>
             <li><i className="fa fa-sign-out" /><span>退出</span></li>
           </ul>

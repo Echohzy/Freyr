@@ -14,9 +14,15 @@ import PersonalMenu from '../components/personal_menu.js';
 
 import { observable, autorun } from 'mobx';
 
+import createBrowserHistory  from 'history/createBrowserHistory';
+
 import { Provider } from 'mobx-react';
 
+import App from '../components/app.js';
+
 import indexStore from '../stores/index_store';
+
+const history  = createBrowserHistory();
 
 const store = {
   indexStore
@@ -24,8 +30,10 @@ const store = {
 
 ReactDOM.render(
   <Provider {...store}>
-    <Router>
-      <Route path="/" component={Home}/>
+    <Router  history={history}>
+      <App>
+        <Route  exact  path="/" component={Home}/>
+      </App>
     </Router>
   </Provider>,
   document.getElementById('app')

@@ -6,6 +6,8 @@ import Tabs from './tabs.js';
 
 import HomeList from "./home_list.js";
 
+import GeneralHeader from './general_header.js';
+
 const { Item } = Tabs;
 
 import axios from 'axios';
@@ -23,8 +25,9 @@ export default class Home extends Component {
     this.setState({activeKey: activeKey});
   }
   render(){
-    return (
-      <div className="home-container">
+    return [
+      <GeneralHeader key="header"/>,
+      <div className="home-container" key="home">
         <Tabs activeKey={this.state.activeKey}>
           <Item itemKey="books" title={<button onClick={()=>this.changeActiveKey("books")}>Book</button>}>
             <HomeList type="books" />
@@ -33,7 +36,7 @@ export default class Home extends Component {
             <HomeList type="movies" />
           </Item>
         </Tabs>
-      </div>
-    );
+      </div>]
+    
   }
 }

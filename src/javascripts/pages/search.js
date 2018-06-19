@@ -4,15 +4,17 @@ import React, { Component } from  'react';
 
 import axios from 'axios';
 
-import Tabs from './tabs.js';
+import Tabs from '../components/tabs.js';
 
 const { Item } = Tabs;
 
 import { parseUrl } from '../utils/location.js';
 
-import SearchList from './search_list.js';
+import SearchList from '../components/search_list.js';
 
-export default class SearchContent extends Component {
+import SearchHeader from '../components/search_header.js';
+
+export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,8 +51,9 @@ export default class SearchContent extends Component {
     this.unlisten();
   }
   render() {
-    return (
-      <div className="search-container">
+    return [
+      <SearchHeader key="search-header"/>,
+      <div className="search-container" key="search-content">
         <Tabs activeKey={this.state.activeKey}>
           <Item itemKey="books" title={<button onClick={()=>this.changeActiveKey("books")}>Books</button>}>
             <SearchList data={this.state.books} result_count={this.state.books.length}/>
@@ -59,7 +62,6 @@ export default class SearchContent extends Component {
             <SearchList data={this.state.movies} result_count={this.state.movies.length}/>
           </Item>
         </Tabs>
-      </div>
-    );
+      </div>];
   }
 }

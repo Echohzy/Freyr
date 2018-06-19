@@ -2,18 +2,18 @@ var webpack = require('webpack');
 var path = require("path");
 
 const entry_config  = {
-  base_path: "./src/javascripts/app/",
+  base_path: "./src/javascripts/",
   entries : {
     index: "index.js",
-    movie: "movie.js",
-    book: "book.js",
-    search: "search.js",
-    user: "user.js",
-    review: "review.js",
-    notification: "notification.js",
-    sign_up: 'sign_up.js',
-    sign_in: 'sign_in.js',
-    todo: 'todo.js'
+    // movie: "movie.js",
+    // book: "book.js",
+    // search: "search.js",
+    // user: "user.js",
+    // review: "review.js",
+    // notification: "notification.js",
+    // sign_up: 'sign_up.js',
+    // sign_in: 'sign_in.js',
+    // todo: 'todo.js'
   },
   extra_in_each_entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'

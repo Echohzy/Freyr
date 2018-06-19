@@ -4,21 +4,21 @@ import React, { Component } from 'react';
 
 import axios from 'axios';
 
-import Tabs from './tabs.js';
+import Tabs from '../components/tabs.js';
 
 const { Item } = Tabs;
 
-import InterestList from './interest_list.js';
+import InterestList from '../components/interest_list.js';
 
-import CollectionList from './collection_list.js';
+import CollectionList from '../components/collection_list.js';
 
-import ReviewList from './review_list.js';
+import ReviewList from '../components/review_list.js';
 
 import { parseUrl } from '../utils/location.js';
 
 import "../../stylesheets/user.less";
 
-export default class UserContent extends Component {
+export default class User extends Component {
   constructor(props) {
     super(props);
     let query = parseUrl(location.href);

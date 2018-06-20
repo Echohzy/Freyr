@@ -35,14 +35,11 @@ module.exports.getInterest = function(id) {
     }
     return interest;
   }).then(function(interest){
-    if(interest.interest_type==='book'){
-      var query = new AV.Object('Book');
-      return query.get(interest.book.objectId).then(function(book) {
-        interest.book = _.pick(book, ['title', 'cover', 'publisher','id', 'author']);
-        return interest;
-      });
-    }
-    return interest;
+    var query = new AV.Object('Book');
+    return query.get(interest.book.objectId).then(function(book) {
+      interest.book = _.pick(book, ['title', 'cover', 'publisher','id', 'author']);
+      return interest;
+    });
   });
 }
 

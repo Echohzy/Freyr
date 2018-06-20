@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import NotificationStore from './notification_store';
 
+configure({ enforceActions: true });
+
 export class AccountStore {
   @observable isRequesting=false;
   @observable currentAccount = {};
@@ -59,7 +61,7 @@ export class AccountStore {
       return res.data;
     }).then(action((data)=>{
       this.currentAccount = data.user;
-      NotificationStore.addNotification("error", "登陆失败");
+      NotificationStore.addNotification("success", "登陆成功");
       successCallback&&successCallback();
     }), action((error)=>{
       NotificationStore.addNotification("error", "登陆失败");

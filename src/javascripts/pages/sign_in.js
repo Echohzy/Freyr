@@ -61,7 +61,8 @@ class SignIn extends Component {
   }
   render(){
     return (
-      <div className="form-container">
+      [<header key="header"><h1>Freyr</h1></header>,
+      <div className="form-container" key="form">
         <div className="logo-wrapper">
           <img src="../../images/logo2.png"/>
         </div>
@@ -76,7 +77,7 @@ class SignIn extends Component {
         <div className="form-action">
           <button className="submit" onClick={()=>this.onSignIn()}>登录</button>
         </div>
-      </div>
+      </div>]
     );
   }
 }

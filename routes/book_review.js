@@ -17,6 +17,24 @@ router.post('/', function(req, res) {
   });
 });
 
+/*get review by book id*/
+
+router.get('/books/:id', function(req, res) {
+  BookReviewApi.getBookReviews(req.params.id)
+  .then(function(data){
+    res.json({
+      status: "success",
+      data: data
+    });
+  }).catch(function(error){
+    res.status(404).json({
+      status: "error",
+      error: error
+    });
+  })
+});
+
+
 router.get('/:id', function(req, res) {
   BookReviewApi.getBookReview(req.params.id).then(function(data){
     res.json({

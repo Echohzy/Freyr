@@ -20,6 +20,7 @@
         padding: 5px 10px;
         overflow: hidden;
         border-radius: 14px;
+        animation: showToHidden 3s;
     }
     .success{
         background: @main-theme;
@@ -29,5 +30,17 @@
     }
     .warning{
         background: @cloudy-blue;
+    }
+}
+
+@keyframes showToHidden {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }

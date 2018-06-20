@@ -23,7 +23,7 @@ class Home extends Component {
   constructor(props){
     super(props);
     this.state = {
-      activeKey: "books",
+      activeKey: "new",
     };
   }
   changeActiveKey(activeKey) {
@@ -35,10 +35,10 @@ class Home extends Component {
       <div className="home-container" key="home">
         <Tabs activeKey={this.state.activeKey}>
           <Item itemKey="new" title={<button onClick={()=>this.changeActiveKey("new")}>New</button>}>
-            <HomeList indexStore={this.props.indexStore} active={this.state.activeKey==="new"}/>
+            <HomeList indexStore={this.props.indexStore} active={this.state.activeKey==="new"} push={this.props.history.push}/>
           </Item>
           <Item itemKey="hoe" title={<button onClick={()=>this.changeActiveKey("hot")}>Hot</button>}>
-            <HomeList indexStore={this.props.indexStore} active={this.state.activeKey==="hot"}/>
+            <HomeList indexStore={this.props.indexStore} active={this.state.activeKey==="hot"} push={this.props.history.push}/>
           </Item>
         </Tabs>
       </div>]

@@ -20,7 +20,7 @@ class HomeList extends Component {
     if (nextProps.active && nextProps.active !== this.props.active && !this.props.indexStore.books.length) {
       this.props.indexStore.getBooks();
     } 
-  }
+  } 
   renderLoadingBlock() {
     return (
       <div className="loading-block">

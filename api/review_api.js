@@ -59,6 +59,30 @@ module.exports.getReview = function(id) {
   });
 };
 
+
+module.exports.getBookReviews = function(book_id) {
+  var query = new AV.Query('Book');
+  query.equalTo('id', parseInt(book_id)).notEqualTo('deleted', true);
+
+  return query.first().then(function(book){
+    book = book.toJSON();
+    return book.objectId;
+  }).then(function(bookId){
+    var r_query = new AV.Query('Review');
+    r_query.equalTo("book", bookId).notEqualTo('deleted', true);
+    return r_query.find();
+  }).then(function(reviews){
+    try{  
+      return reviews.map(function(review){
+        review = review.toJSON();
+        return _.pick(review, ["like", "content", "title", "author", "id", "score", "comment", "dislike", "updatedAt"]);
+      });
+    }catch(error){
+      return Promise.reject("can not found");
+    }
+  });
+}
+
 module.exports.updateReview = function(id, params) {
   var query = new AV.Query('Review');
   query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);

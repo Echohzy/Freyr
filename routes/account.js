@@ -24,9 +24,9 @@ router.post('/sign_up', function(req, res) {
 // login 
 router.post('/login', function(req, res) {
   AccountApi.login(req.body).then(function(current_user) {
-    res.cookie('username', current_user.username, { domain: '127.0.0.1', path:"/", expires: new Date((new Date()).getTime() + 10*3600000) });
-    res.cookie('avatar', current_user.avatar, { domain: '127.0.0.1', path:"/",expires: new Date(Date.now() + 900000) });
-    res.cookie('id', current_user.id, { domain: '127.0.0.1', path:"/",expires: new Date(Date.now() + 900000) });
+    res.cookie('username', current_user.username, { path:"/", expires: new Date((new Date()).getTime() + 10*3600000) });
+    res.cookie('avatar', current_user.avatar, {  path:"/",expires: new Date(Date.now() + 900000) });
+    res.cookie('id', current_user.id, { path:"/",expires: new Date(Date.now() + 900000) });
     res.json({
       status: "success",
       user: {
@@ -51,6 +51,35 @@ router.post('/login', function(req, res) {
     }
   });
 });
+
+
+/*get current account*/
+router.get("/me", function(req, res) {
+  var cookie = req.cookies;
+  if(!cookie || !cookie.id){
+    res.status(401).json({
+      status: "error",
+      message: "invalid authentication"
+    });
+  } else {
+    AccountApi.getAccount(cookie.id).then(function(data){
+      res.json({
+        status: "success",
+        account: {
+          avatar: data.avatar,
+          username: data.username,
+          id: data.id
+        }
+      });
+    }).catch(function(error){
+      res.status(400).json({
+        status: 'error',
+        error: error
+      });
+    });
+  }
+});
+
 
 /*get account*/
 router.get("/:id", function(req, res) {

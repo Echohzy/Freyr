@@ -12,7 +12,6 @@ export class IndexStore {
 
   @action
   getBooks(type="hot"){
-    console.log(this, this.isRequesting);
     this.isRequesting = true;
     axios.get("/api/books?type="+type)
     .then((res)=>{

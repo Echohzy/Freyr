@@ -2,13 +2,15 @@
 
 import React, { Component } from 'react';
 
-import TextInput from './text_input';
+import TextInput from '../components/text_input';
 
-import wrappedInput from './text_input_wrapper';
+import wrappedInput from '../components/text_input_wrapper';
 
 import FormSetting from '../utils/form_setting';
 
 import axios from 'axios';
+
+import { observer, inject } from 'mobx-react';
 
 import "../../stylesheets/form.less";
 
@@ -17,15 +19,23 @@ const attr_settings = {
   password: FormSetting.password
 };
 
+@inject("accountStore")
+@wrappedInput
+@observer
 class SignIn extends Component {
   constructor(props){
     super(props);
     this.state = this.props.getInitAttrs(attr_settings);
+    this.signInSuccess = this.signInSuccess.bind(this);
+    this.signInFail = this.signInFail.bind(this);
   }
   onTextValueChange(attr, value) {
     this.setState({[attr]: value});
   }
   onSignIn(){
+    if(this.props.accountStore.isRequesting){
+      return;
+    }
     let passed = true;
     var data = {};
     Object.keys(attr_settings).map((attr)=>{
@@ -38,18 +48,16 @@ class SignIn extends Component {
     if(!passed){
       return;
     }
-    axios({
-      method: "post",
-      url: "/api/accounts/login",
-      data: data
-    }).then((res)=>{
-      window.location.href = "/";
-    }).catch((error)=>{
-      if(error.response&&error.response.data){
-        var err = error.response.data.error;
-        this.setState({[err.attr]: Object.assign({}, this.state[err.attr],{status:"request_error", request_error: err.message})});
-      }
-    });
+    this.props.accountStore.signIn(data, this.signInSuccess, this.signInFail);
+  }
+  signInSuccess(){
+    this.props.history.push("/");
+  }
+  signInFail(error){
+    if(error.response&&error.response.data){
+      var err = error.response.data.error;
+      this.setState({[err.attr]: Object.assign({}, this.state[err.attr],{status:"request_error", request_error: err.message})});
+    }
   }
   render(){
     return (
@@ -73,6 +81,6 @@ class SignIn extends Component {
   }
 }
 
-export default wrappedInput(SignIn);
+export default SignIn;
 
 

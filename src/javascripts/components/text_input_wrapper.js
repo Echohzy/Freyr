@@ -19,7 +19,7 @@ export default function wrappedInput(WrappedComponent) {
     }
     render(){
       return (
-        <WrappedComponent getInitAttrs={this.getInitAttrs} />
+        <WrappedComponent getInitAttrs={this.getInitAttrs} {...this.props}/>
       );
     }
   }

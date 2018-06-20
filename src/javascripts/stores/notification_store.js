@@ -7,7 +7,7 @@ export class NotificationStore {
   @observable notifications = [];
 
   @action
-  addNotifications(status, mesage){
+  addNotification(status, message){
     this.notifications.push({id: Date.now(), status: status, message: message});
   }
   @action

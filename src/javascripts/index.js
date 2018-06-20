@@ -23,15 +23,18 @@ import User from './pages/user.js';
 import Notification from './pages/notification.js';
 import Editor from './pages/editor.js';
 import Book from './pages/book.js';
+import SignIn from './pages/sign_in';
 
 import indexStore from './stores/index_store';
 import notificationStore from './stores/notification_store';
+import accountStore from './stores/account_store';
 
 const history  = createBrowserHistory();
 
 const store = {
   indexStore,
-  notificationStore
+  notificationStore,
+  accountStore
 };
 
 ReactDOM.render(
@@ -46,6 +49,7 @@ ReactDOM.render(
         <Route path="/reviews/:id" component={Review} />
         <Route path="/users/:id" component={User} />
         <Route path="/notifications" component={Notification}/>
+        <Route path="/sign_in" component={SignIn}/>
       </App>
     </Router>
   </Provider>,

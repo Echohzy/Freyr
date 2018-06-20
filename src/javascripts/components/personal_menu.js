@@ -1,37 +1,33 @@
 import React, { Component } from 'react';
 
+import { observer, inject } from 'mobx-react';
+
 import axios from "axios";
 
 import { getItem } from '../utils/cookie';
 
 import "../../stylesheets/personal_menu.less";
 
-export default class PersonalMenu extends Component {
+@inject('accountStore')
+@observer
+class PersonalMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
-      account: {}
     }
   }
   componentDidMount() {
-    this.getAccountInfo();
-  }
-  getAccountInfo(){
-    var id = getItem("id");
-    if(id){
-      axios.get("/api/accounts/"+id).then(function(res){
-        return res.data;
-      }).then((data)=>{
-        this.setState({account: data.account});
-      })
+    const { currentAccount }  = this.props.accountStore;
+    if(!currentAccount.id){
+      this.props.accountStore.getMeInfo();
     }
   }
   setVisible(value) {
     this.setState({visible: value});
   }
   render() {
-    const { account } = this.state;
+    const { currentAccount } = this.props.accountStore;
     let classname = ["personal-menu"];
     this.state.visible ? classname.push("show") : "";
     return [
@@ -42,7 +38,7 @@ export default class PersonalMenu extends Component {
         </button>
         <div className="content">
           <div className="avatar-wrapper">
-            <img src={account.avatar ? account.avatar + "?imageView2/2/w/80/h/80": ""} />
+            <img src={currentAccount.avatar ? currentAccount.avatar + "?imageView2/1/w/80/h/80": ""} />
           </div>
           <ul className="user-menu">
             <li className="active"><i className="fa fa-commenting-o" /><span>我的消息</span></li>
@@ -55,3 +51,5 @@ export default class PersonalMenu extends Component {
     ];
   }
 }
+
+export default PersonalMenu;

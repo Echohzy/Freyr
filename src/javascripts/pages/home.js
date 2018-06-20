@@ -42,7 +42,6 @@ class Home extends Component {
           </Item>
         </Tabs>
       </div>]
-    
   }
 }
 

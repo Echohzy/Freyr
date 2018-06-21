@@ -24,6 +24,9 @@ class Book extends Component {
       this.props.reviewStore.getReviews(params.id);
     }
   }
+  likeReview(review_id, type){
+    this.props.reviewStore.likeReview(review_id, type);
+  }
   render() {
     const { currentBook }  = this.props.bookStore;
     const { currentReviews } = this.props.reviewStore;
@@ -76,8 +79,8 @@ class Book extends Component {
                       <p className="summary">{ review.content ? review.content.slice(0,60) + "..." : ""}</p>
                     </div>
                     <div className="review-action">
-                      <span><i className="fa fa-thumbs-up" />{review.like}</span>
-                      <span><i className="fa fa-thumbs-o-down" />{review.dislike}</span>
+                      <span><i className="fa fa-thumbs-up" onClick={()=>this.likeReview(review.id, "like")}/>{review.like}</span>
+                      <span><i className="fa fa-thumbs-o-down" onClick={()=>this.likeReview(review.id, "dislike")}/>{review.dislike}</span>
                       <span><i className="fa fa-commenting" />{review.comment_count}</span>
                     </div>
                   </div>

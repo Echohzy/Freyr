@@ -9,13 +9,8 @@ module.exports.addReview = function(params) {
   review.set('type', params.type);
   var author = AV.Object.createWithoutData('Account', params.account_id);
   review.set('author', author);
-  if (params.type === 'movie') {
-    var movie = AV.Object.createWithoutData('Movie', params.movie_id);
-    review.set('movie', movie);
-  } else if (params.type === 'book') {
-    var book = AV.Object.createWithoutData('Book', params.book_id);
-    review.set('book', book);
-  }
+  var book = AV.Object.createWithoutData('Book', params.book_id);
+  review.set('book', book);
   return review.save().then(function(data){
     return data.toJSON();
   });
@@ -98,6 +93,46 @@ module.exports.getBookReviews = function(book_id) {
       }));
     });
     return Promise.all(ps);
+  });
+}
+
+
+module.exports.likeOrDislikeReview = function(user_id, review_id, type){
+  var userQuery = new AV.Query("_User");
+  var currentReview;
+  var userPointer;
+  var reviewPointer;
+  userQuery.equalTo("id", parseInt(user_id)).notEqualTo('deleted', true);
+  return userQuery.first().then(function(user){
+    return user.id;
+  }).then(function(user_id){
+    var reviewQuery = new AV.Query("Review");
+    reviewQuery.equalTo("id", parseInt(review_id)).notEqualTo("deleted", true);
+    return reviewQuery.first();
+  }).then(function(review){
+      currentReview = review;
+      userPointer = AV.Object.createWithoutData('_User', user_id);
+      reviewPointer = AV.Object.createWithoutData('Review', review.id);
+      var likeQuery = new AV.Query('LikeRelation');
+      likeQuery.equalTo("user", userPointer).equalTo('review', reviewPointer).equalTo('type', type);
+      return likeQuery.first();
+  }).then(function(like){
+    if(like){
+      return Promise.reject("不能重复操作");
+    } else {
+      var like = new AV.Object('LikeRelation');
+      like.set('user', userPointer);
+      like.set('review', reviewPointer);
+      like.set('type', type);
+      return like.save();
+    }
+  }).then(function(){
+    var current = currentReview.get(type) + 1;
+    currentReview.set(type, current);
+    return currentReview.save();
+  }).then(function(review){
+    var review = review.toJSON();
+    return _.pick(review, ["id", "like", "dislike"]);
   });
 }
 

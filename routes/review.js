@@ -32,6 +32,30 @@ router.get("/books/:id", function(req, res) {
   })
 });
 
+
+router.post("/:id/like", function(req, res) {
+  var cookies = req.cookies;
+  if(!cookies || !cookies.id){
+    res.status(401).json({
+      status: "error",
+      message: "invalid authentication"
+    });
+  } else {
+    ReviewApi.likeOrDislikeReview(cookies.id, req.params.id, req.body.type)
+    .then(function(data){
+      res.json({
+        status: "success",
+        data: data
+      });
+    }).catch(function(error){
+      res.status(404).json({
+        status: "error",
+        error: error
+      });
+    });
+  }
+});
+
 /*get account*/
 router.get("/:id", function(req, res) {
   ReviewApi.getReview(req.params.id).then(function(data){

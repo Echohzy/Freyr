@@ -4,7 +4,7 @@ const getDateNumber = function(num) {
   return num < 10 ? "0" + num : num;
 }
 
-const getDateByTimestamp = function(timestamp, format="YYYY-MM-DD hh-mm-ss") {
+const getDateByTimestamp = function(timestamp, format="YYYY-MM-DD hh:mm:ss") {
   let date = new Date(timestamp);
   let YYYY = date.getFullYear();
   let MM = getDateNumber(date.getMonth() + 1);

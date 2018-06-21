@@ -28,29 +28,17 @@ module.exports.getReview = function(id) {
       return Promise.reject('can not found');
     }
   }).then(function(review){
-    var accountQuery = new AV.Query('Account');
+    var accountQuery = new AV.Query('_User');
     return accountQuery.get(review.author.objectId).then(function(account) {
-      review.author = _.pick(account, ['id', 'nickname', 'avatar']);
+      review.author = _.pick(account.toJSON(), ['id', 'username', 'avatar']);
       return review;
     });
-  }).then(function(review) {
-    if (review.type==="movie") {
-      var movieQuery = new AV.Query('Movie');
-      return movieQuery.get(review.movie.objectId).then(function(movie) {
-        review.movie = _.pick('movie', ['id', 'name', 'original_name', 'user_review_count', 'types', 'summary', 'stars', 'directors', 'post', 'tag', 'durations', 'languages']);
-        return review;
-      });
-    }
-    return review;
   }).then(function(review){
-    if (review.type === 'book') {
-      var bookQuery = new AV.Query('Book');
-      return bookQuery.get(review.book.objectId).then(function(book) {
-        review.book = _.pick(book, ['publisher', 'cover', 'title', 'author', 'summary', 'cate', 'id', 'score', 'ISBN', 'price', 'review_count']);
-        return review;
-      });
-    }
-    return review;
+    var bookQuery = new AV.Query('Book');
+    return bookQuery.get(review.book.objectId).then(function(book) {
+      review.book = _.pick(book.toJSON(), ['publisher', 'cover', 'title', 'author', 'summary', 'cate', 'id', 'score', 'ISBN', 'price', 'review_count']);
+      return review;
+    });
   });
 };
 

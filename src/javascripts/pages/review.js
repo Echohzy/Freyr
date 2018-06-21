@@ -8,45 +8,37 @@ import "../../stylesheets/review.less";
 
 import { getDateByTimestamp } from '../utils/date.js';
 
-export default class ReviewContent extends Component {
+import { observer, inject } from 'mobx-react';
+
+
+@inject('reviewStore')
+@inject('commentStore')
+@observer
+class Review extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      review: {},
-      comments: []
+  }
+  componentDidMount(){
+    const { params } = this.props.match;
+    if(params.id){
+      this.props.reviewStore.getSingleReview(params.id);
+      this.props.commentStore.getCommentsByReview(params.id);
     }
-    this.getReviewData();
-    this.getReviewComments();
-  }
-  getReviewData() {
-    axios.get("/api/reviews/"+this.props.id).then(function(res){
-      return res.data;
-    }).then((data)=>{
-      this.setState({
-        review: data.review
-      });
-    });
-  }
-  getReviewComments() {
-    axios.get("/api/reviews/"+this.props.id+"/comments.json").then(function(res){
-      return res.data;
-    }).then((data)=>{
-      this.setState({comments: data.comments});
-    });
   }
   render() {
-    const { review, comments } = this.state;
+    const {currentComments } = this.props.commentStore;
+    const { currentReview } = this.props.reviewStore;
     return (
       <div className="review-container">
         <div className="cover-block">
-          <img src={review.cover}/>
+          <img src={currentReview.cover}/>
         </div>
         <div className="review-detail">
           <div className="info">
             <span className="score">
               {
                 [1,2,3,4,5].map((num)=>{
-                  if (num <= review.score) {
+                  if (num <= currentReview.score) {
                     return <i className="fa fa-star" key={num} />
                   } else {
                     return <i className="fa fa-star-o" key={num} />
@@ -56,19 +48,19 @@ export default class ReviewContent extends Component {
             </span>
             <span className="middle">&middot;</span>
             <i className="date">
-              {"posted " + getDateByTimestamp(review.created_at_timestamp).slice(0, 10)}
+              {"posted " + getDateByTimestamp(currentReview.updatedAt, "YYYY-MM-DD")}
             </i>
             {
-              review.author?<a className="author" href={"/users/" + review.author.id}><img src={review.author.avatar + "?imageView2/1/w/40/h/40"} /></a>:""
+              currentReview.author?<a className="author" href={"/users/" + currentReview.author.id}><img src={currentReview.author.avatar + "?imageView2/1/w/40/h/40"} /></a>:""
             }
           </div>
-          <h1 className="title">{review.title}</h1>
-          <div className="detail" dangerouslySetInnerHTML={{__html: review.content}}></div>
+          <h1 className="title">{currentReview.title}</h1>
+          <div className="detail" dangerouslySetInnerHTML={{__html: currentReview.content}}></div>
         </div>
         <div className="comment-list">
-          <h1>{review.comment_count + "条评论"}</h1>
+          <h1>{currentComments.length + "条评论"}</h1>
           {
-            comments && comments.map((comment)=>{
+            currentComments && currentComments.map((comment)=>{
               return (
                 <div className="comment-block" key={comment.id}>
                   <div className="avatar-wrapper">
@@ -83,7 +75,7 @@ export default class ReviewContent extends Component {
                         <li>删除</li>
                       </ul>
                     </button>
-                    <a className="nickname" href={"/users/" + comment.creator.id}>{comment.creator.nickname}</a>
+                    <a className="nickname" href={"/users/" + comment.creator.id}>{comment.creator.username}</a>
                     <p>{comment.comment}</p>
                     <span className="date">{getDateByTimestamp(comment.created_at_timestamp)}</span>
                   </div>
@@ -97,3 +89,5 @@ export default class ReviewContent extends Component {
     );
   }
 }
+
+export default Review;

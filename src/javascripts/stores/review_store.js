@@ -13,6 +13,7 @@ const LIKE_MAP = {
 
 export class ReviewStore {
   @observable currentReviews = [];
+  @observable currentReview = [];
   @observable isRequesting = true;
 
   @action
@@ -56,6 +57,26 @@ export class ReviewStore {
     }), action((res)=>{
       NotificationStore.addNotification("error", res.response.data.error);
     }) ).finally(this.requestingFinished);
+  }
+
+  @action
+  getSingleReview(review_id){
+    this.isRequesting = true;
+    axios.get("/api/reviews/"+review_id)
+    .then(function(res){
+      return res.data;
+    }).then(this.getSingleReviewSuccess, this.getSingleReviewFail)
+    .finally(this.requestingFinished);
+  }
+
+  @action.bound
+  getSingleReviewSuccess(res){
+    this.currentReview = res.data;
+  }
+
+  @action.bound
+  getSingleReviewFail(){
+
   }
 
 

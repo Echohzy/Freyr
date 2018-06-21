@@ -4,20 +4,29 @@ var router = express.Router();
 var CommentApi = require('../api/comment_api');
 
 router.post('/', function(req, res) {
-  CommentApi.addComment(req.body).then(function(data) {
-    res.json({
-      status: 'success',
-      data: data
+  var cookies = req.cookies;
+  if(!cookies || !cookies.id) {
+    res.status(401).json({
+      status: "error",
+      message: "invalid authentication"
     });
-  }).catch(function(error) {
-    res.status(400).json({
-      error: error
+  } else {
+    CommentApi.addComment(Object.assign({}, req.body, {user_id: cookies.id})).then(function(data) {
+      res.json({
+        status: 'success',
+        data: data
+      });
+    }).catch(function(error) {
+      res.status(400).json({
+        error: error
+      });
     });
-  });
+  } 
+  
 });
 
-router.get('/', function(req, res) {
-  CommentApi.getComment(req.query).then(function(data) {
+router.get('/reviews/:id', function(req, res) {
+  CommentApi.getCommentsByReview(req.params.id).then(function(data) {
     res.json({
       status: 'success',
       data: data

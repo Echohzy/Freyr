@@ -4,6 +4,8 @@ import { getDateByTimestamp } from "../utils/date.js";
 
 import { observer, inject } from 'mobx-react';
 
+import { Link } from 'react-router-dom';
+
 import axios from 'axios';
 
 import GeneralHeader from '../components/general_header';
@@ -75,7 +77,7 @@ class Book extends Component {
                       <span className="date">{getDateByTimestamp(review.updatedAt)}</span>
                     </div>
                     <div className="review-content">
-                      <h1>{review.title}</h1>
+                      <Link to={"/reviews/" + review.id}><h1>{review.title}</h1></Link>
                       <p className="summary">{ review.content ? review.content.slice(0,60) + "..." : ""}</p>
                     </div>
                     <div className="review-action">

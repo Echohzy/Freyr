@@ -69,7 +69,8 @@ module.exports.getBookReviews = function(book_id) {
     return book.objectId;
   }).then(function(bookId){
     var r_query = new AV.Query('Review');
-    r_query.equalTo("book", bookId).notEqualTo('deleted', true);
+    var book_pointer = AV.Object.createWithoutData('Book', bookId);
+    r_query.equalTo("book", book_pointer).notEqualTo('deleted', true);
     return r_query.find();
   }).then(function(reviews){
     try{  
@@ -80,6 +81,23 @@ module.exports.getBookReviews = function(book_id) {
     }catch(error){
       return Promise.reject("can not found");
     }
+  }).then(function(reviews){
+    var ps = [];
+
+    reviews.map(function(r){
+      var user_query = new AV.Query('_User');
+      ps.push(user_query.get(r.author.objectId).then(function(data){
+        return data.toJSON();
+      }).then(function(author){
+        r.author = {
+            id: author.id,
+            avatar: author.avatar,
+            username: author.username
+        }
+        return r;
+      }));
+    });
+    return Promise.all(ps);
   });
 }
 

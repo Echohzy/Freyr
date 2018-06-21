@@ -13,14 +13,16 @@ export class ReviewStore {
   @action
   getReviews(book_id){
     axios.get("/api/reviews/books/"+book_id)
+    .then(function(res){
+      return res.data;
+    })
     .then(this.getReviewsSuccess, this.getReviewsFail)
     .finally(this.requestingFinished)
   }
 
-
   @action.bound
-  getReviewsSuccess(data){
-    this.currentReviews = data;
+  getReviewsSuccess(res){
+    this.currentReviews = res.data;
   }
   @action.bound
   getReviewsFail(){

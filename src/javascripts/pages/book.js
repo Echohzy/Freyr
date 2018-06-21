@@ -18,29 +18,15 @@ class Book extends Component {
     super(props);
   }
   componentDidMount() {
-    // this.getBookDate();
-    // this.getBookReviews();
-  }
-  getBookDate() {
-    const { id } = this.props;
-    axios.get("/api/books/" + id).then((res)=>{
-      return res.data;
-    }).then((data)=>{
-      this.setState({book: data.book});
-    });
-  }
-  getBookReviews() {
-    const { id } = this.props;
-    axios.get("/api/books/"+id+"/reviews").then((res)=>{
-      return res.data;
-    }).then((data)=>{
-      this.setState({reviews: data.reviews});
-    });
+    const { params } =  this.props.match;
+    if(params&&params.id){
+      this.props.bookStore.getBook(params.id);
+      this.props.reviewStore.getReviews(params.id);
+    }
   }
   render() {
     const { currentBook }  = this.props.bookStore;
     const { currentReviews } = this.props.reviewStore;
-
     return [
       <GeneralHeader key="header" />,
       <div className="book-detail-container" key="book">
@@ -66,7 +52,7 @@ class Book extends Component {
         <div className="review-list">
           <h1>热门书评</h1>
           {
-           currentReviews.map((review)=>{
+           currentReviews&&currentReviews.map((review)=>{
                 return (
                   <div className="review-block" key={review.id}>
                     <div className="review-author">
@@ -83,11 +69,11 @@ class Book extends Component {
                           })
                         }
                       </span>
-                      <span className="date">{getDateByTimestamp(review.created_at_timestamp)}</span>
+                      <span className="date">{getDateByTimestamp(review.updatedAt)}</span>
                     </div>
                     <div className="review-content">
                       <h1>{review.title}</h1>
-                      <p className="summary">{review.summary + "..."}</p>
+                      <p className="summary">{ review.content ? review.content.slice(0,60) + "..." : ""}</p>
                     </div>
                     <div className="review-action">
                       <span><i className="fa fa-thumbs-up" />{review.like}</span>

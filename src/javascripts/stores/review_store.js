@@ -14,7 +14,7 @@ const LIKE_MAP = {
 export class ReviewStore {
   @observable currentReviews = [];
   @observable currentReview = [];
-  @observable isRequesting = true;
+  @observable isRequesting = false;
 
   @action
   getReviews(book_id){
@@ -78,7 +78,59 @@ export class ReviewStore {
   getSingleReviewFail(){
 
   }
+  
+  @action
+  createNewReview(params){
+    this.isRequesting = true;
+    return axios({
+      url: "/api/reviews",
+      method: "post",
+      data: params
+    }).then(function(res){
+      return res.data;
+    }).then(this.createNewReviewSuccess, this.createNewReviewFail)
+    .finally(this.requestingFinished)
+  }
 
+  @action.bound
+  createNewReviewSuccess(res){
+    this.currentReview = res.data;
+    NotificationStore.addNotification('success', '创建成功！');
+  }
+
+  @action.bound
+  createNewReviewFail(){
+    NotificationStore.addNotification('error', '创建失败');
+  }
+
+  @action
+  updateReview(params){
+    this.isRequesting = true;
+    return axios({
+      url: "/api/reviews/" + params.id,
+      method: "put",
+      data: params 
+    }).then(function(res){
+      return res.data;
+    }).then(this.updateReviewSuccess, this.updateReviewFail)
+    .finally(this.requestingFinished);
+  }
+
+  @action.bound
+  updateReviewSuccess(res){
+    this.currentReview = res.data;
+    NotificationStore.addNotification("success", "更新成功！");
+  }
+
+  @action.bound
+  updateReviewFail(){
+    NotificationStore.addNotification('error', "更新失败！");
+  }
+
+  @action.bound
+  updateReviewFail(){
+
+  }
 
   @action.bound
   requestingFinished(){

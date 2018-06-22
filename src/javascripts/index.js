@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 import ReactDOM from 'react-dom';
 
-import { Router, Route } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 
 
 import { observable, autorun } from 'mobx';
@@ -47,15 +47,17 @@ ReactDOM.render(
   <Provider {...store}>
     <Router  history={history}>
       <App>
-        <Route  exact  path="/" component={Home}/>
-        <Route path="/search" component={Search}/>
-        <Route path="/books/:id" component={Book}/>
-        <Route path="/reviews/:id/draft" component={Editor} />
-        <Route path="/reviews/new" component={Editor} />
-        <Route path="/reviews/:id" component={Review} />
-        <Route path="/users/:id" component={User} />
-        <Route path="/notifications" component={Notification}/>
-        <Route path="/sign_in" component={SignIn}/>
+        <Switch>
+          <Route  exact  path="/" component={Home}/>
+          <Route path="/search" component={Search}/>
+          <Route path="/books/:id" component={Book}/>
+          <Route path="/reviews/:id/edit" component={Editor} />
+          <Route path="/reviews/new" component={Editor} />
+          <Route path="/reviews/:id" component={Review} />
+          <Route path="/users/:id" component={User} />
+          <Route path="/notifications" component={Notification}/>
+          <Route path="/sign_in" component={SignIn}/>
+        </Switch>
       </App>
     </Router>
   </Provider>,

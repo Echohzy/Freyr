@@ -29,6 +29,9 @@ class Review extends Component {
       this.props.commentStore.getCommentsByReview(params.id);
     }
   }
+  deleteCommentById(id){
+    this.props.commentStore.deleteComment(id);
+  }
   render() {
     const { match } = this.props;
     const {currentComments } = this.props.commentStore;
@@ -78,7 +81,7 @@ class Review extends Component {
                       <ul className="menu">
                         <div className="triangle">
                         </div>
-                        <li>删除</li>
+                        <li onClick={()=>this.deleteCommentById(comment.id)}>删除</li>
                       </ul>
                     </button>
                     <a className="nickname" href={"/users/" + comment.creator.id}>{comment.creator.username}</a>

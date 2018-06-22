@@ -3,16 +3,41 @@ var _ = require('lodash');
 
 module.exports.addReview = function(params) {
   var review = new AV.Object('Review');
-  review.set('title', params.title);
-  review.set('content', params.content);
-  review.set('score', params.score);
-  review.set('type', params.type);
-  var author = AV.Object.createWithoutData('Account', params.account_id);
-  review.set('author', author);
-  var book = AV.Object.createWithoutData('Book', params.book_id);
-  review.set('book', book);
-  return review.save().then(function(data){
-    return data.toJSON();
+  var userQuery = new AV.Query("_User");
+  var currentUser;
+  var up;
+  userQuery.equalTo("id", parseInt(params.author_id)).notEqualTo('deleted', true);
+  return userQuery.first().then(function(user){
+    currentUser = user;
+    return AV.Object.createWithoutData('_User', user.id);
+  }).then(function(userPointer){
+    up = userPointer;
+    var bookQuery = new AV.Query('Book');
+    bookQuery.equalTo("id", parseInt(params.book_id)).notEqualTo('deleted', true);
+    return bookQuery.first();
+  }).then(function(book){
+    var bp = AV.Object.createWithoutData('Book', book.id);
+    review.set('title', params.title);
+    review.set('content', params.content);
+    review.set('author', up);
+    review.set('book', bp);
+    return review.save();
+  }).then(function(review){
+    var reviewQuery = new AV.Query("Review");
+    return reviewQuery.get(review.id);
+  }).then(function(review){
+    review = review.toJSON();
+    var r = {
+      id: review.id,
+      title: review.title,
+      content: review.content,
+      author: {
+        id: currentUser.get('id'),
+        avatar: currentUser.get('avatar'),
+        username: currentUser.get('username')
+      }
+    }
+    return r;
   });
 };
 

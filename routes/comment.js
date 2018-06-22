@@ -40,16 +40,25 @@ router.get('/reviews/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-  CommentApi.updateComment(req.params.id, {'deleted': true}).then(function(data) {
-    res.json({
-      status: 'success',
-      data: data
+  var cookies = req.cookies;
+  if(!cookies || !cookies.id) {
+    res.status(401).json({
+      status: "error",
+      message: "invalid authentication"
     });
-  }).catch(function(error){
-    res.status(404).json({
-      error: error
+  } else {
+    CommentApi.updateComment({id: req.params.id, creator_id: cookies.id}, {'deleted': true}).then(function(data) {
+      res.json({
+        status: 'success',
+        data: data
+      });
+    }).catch(function(error){
+      console.log(error);
+      res.status(404).json({
+        error: error
+      });
     });
-  });
+  }
 });
 
 

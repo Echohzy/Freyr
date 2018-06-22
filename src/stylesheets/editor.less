@@ -1,0 +1,44 @@
+@import "./base.less";
+
+.editor-container{
+    padding: 50px 0;
+    .review-title {
+        display: inline-block;
+        width: calc(~"100% - 20px");
+        border: none;
+        font-size: 15px;
+        box-sizing: border-box;
+        padding: 10px;
+        margin: 10px;
+        line-height: 22px;
+        outline: none;
+    }
+    .review-content{
+        height: calc( ~ "100vh - 162px" );
+        resize: none;
+        border: none;
+        outline: none;
+        width: calc(~"100% - 20px");
+        box-sizing: border-box;
+        padding: 10px;
+        margin: 10px;
+        font-size: 15px;
+        color: @warm-grey;
+    }
+    .footer{
+        box-shadow: 0 -2px 5px rgba(140,140,140, 0.1);
+        background: @background-white;
+        position: fixed;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+        bottom: 0;
+        button{
+            float: right;
+            color: @background-white;
+            height: 30px;
+            width: 55px;
+            background: @main-theme;
+        }
+    }
+}

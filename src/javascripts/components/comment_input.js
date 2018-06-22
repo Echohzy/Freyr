@@ -23,12 +23,12 @@ class CommentInput extends Component {
       return;
     }
     if(!this.state.content){
-      this.props.notificationStore.addNotification("error", "内容不能为空").then(()=>{
-        this.setState({content: ""});
-      });
+      this.props.notificationStore.addNotification("error", "内容不能为空");
       return;
     }
-    this.props.commentStore.postComment({content: this.state.content, review_id: this.props.review_id});
+    this.props.commentStore.postComment({content: this.state.content, review_id: this.props.review_id}).then(()=>{
+        this.setState({content: ""});
+      });
   }
   render(){
     return (

@@ -4,17 +4,25 @@ var ReviewApi = require('../api/review_api');
 
 /*create account*/
 router.post("/", function(req, res) {
-  ReviewApi.addReview(req.body).then(function(data){
-    res.json({
-      status: 'success',
-      data: data
-    });
-  }).catch(function(error){
-    res.status(400).json({
+  var cookies = req.cookies;
+  if(!cookies || !cookies.id){
+    res.status(401).json({
       status: "error",
-      error: error
+      message: "invalid authentication"
     });
-  });
+  } else {
+    ReviewApi.addReview( Object.assign({author_id: cookies.id}, req.body) ).then(function(data){
+      res.json({
+        status: 'success',
+        data: data
+      });
+    }).catch(function(error){
+      res.status(400).json({
+        status: "error",
+        error: error
+      });
+    });
+  }
 });
 
 router.get("/books/:id", function(req, res) {
@@ -74,17 +82,25 @@ router.get("/:id", function(req, res) {
 
 /*update account*/
 router.put("/:id", function(req, res) {
-  ReviewApi.updateReview(req.params.id, req.body).then(function(data) {
-    res.json({
-      status: 'success',
-      data: data
+  var cookies = req.cookies;
+  if(!cookies || !cookies.id){
+    res.status(401).json({
+      status: "error",
+      message: "invalid authentication"
     });
-  }).catch(function(error) {
-    res.status(400).json({
-      status: 'error',
-      error: error
+  } else {
+    ReviewApi.updateReview(req.params.id, Object.assign({author_id: cookies.id}, req.body)).then(function(data) {
+      res.json({
+        status: 'success',
+        data: data
+      });
+    }).catch(function(error) {
+      res.status(400).json({
+        status: 'error',
+        error: error
+      });
     });
-  });
+  }
 });
 
 

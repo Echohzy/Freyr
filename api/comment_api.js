@@ -69,15 +69,26 @@ module.exports.getCommentsByReview = function(review_id) {
   });
 }
 
-module.exports.updateComment = function(id, params) {
+module.exports.updateComment = function(info, params) {
   var query = new AV.Query('Comment');
-  query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
+  var currentComment;
+  var userPointer = AV.Object.createWithoutData('_User', parseInt(info.creator_id));
+  query.equalTo('id', parseInt(info.id)).notEqualTo('deleted', true);
   return query.first().then(function(c){
-    for (var k in params) {
-      c.set(k, params[k]);
+    currentComment = c;
+    var userQuery = new AV.Query('_User');
+    userQuery.equalTo('id', parseInt(info.creator_id)).notEqualTo('deleted', true);
+    return userQuery.first();
+  }).then(function(user){
+    if(currentComment.get("creator").id===user.id){
+      for (var k in params) {
+        currentComment.set(k, params[k]);
+      }
+      return currentComment.save().then(function(data){
+        return data.toJSON();
+      });
+    } else {
+      return Promise.reject("invalid authentication");
     }
-    return c.save().then(function(data){
-      return data.toJSON();
-    });
   });
 }

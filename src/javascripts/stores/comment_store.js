@@ -52,6 +52,25 @@ export class CommentStore {
 
   }
 
+  @action
+  deleteComment(id){
+    this.isRequesting = true;
+    axios({
+      url: "/api/comments/"+id,
+      method: "delete"
+    }).then(action(()=>{
+      NotificationStore.addNotification("success", "删除成功");
+      this.currentComments = this.currentComments.filter(function(c){
+        return c.id !== id
+      });
+    }), this.deleteCommentFail).finally(this.requestingFinally);
+  }
+
+  @action.bound
+  deleteCommentFail(error){
+    NotificationStore.addNotification("error", error.response.data.error);
+  }
+
   @action.bound
   requestingFinally(){
     this.isRequesting = false;

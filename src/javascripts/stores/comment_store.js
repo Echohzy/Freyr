@@ -13,7 +13,7 @@ export class CommentStore {
   @action
   postComment(params){
     this.isRequesting = true;
-    axios({
+    return axios({
       url: "/api/comments",
       method: "post",
       data: params
@@ -25,7 +25,7 @@ export class CommentStore {
 
   @action.bound
   postCommentSuccess(res){
-    this.currentComments = [res.data].concat(res.data);
+    this.currentComments = [res.data].concat(this.currentComments);
     NotificationStore.addNotification('success', "评论成功");
   }
 

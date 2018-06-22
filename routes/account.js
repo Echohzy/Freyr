@@ -25,8 +25,8 @@ router.post('/sign_up', function(req, res) {
 router.post('/login', function(req, res) {
   AccountApi.login(req.body).then(function(current_user) {
     res.cookie('username', current_user.username, { path:"/", expires: new Date((new Date()).getTime() + 10*3600000) });
-    res.cookie('avatar', current_user.avatar, {  path:"/",expires: new Date(Date.now() + 900000) });
-    res.cookie('id', current_user.id, { path:"/",expires: new Date(Date.now() + 900000) });
+    res.cookie('avatar', current_user.avatar, {  path:"/",expires: new Date(Date.now() + 10*3600000) });
+    res.cookie('id', current_user.id, { path:"/",expires: new Date(Date.now() + 10*3600000) });
     res.json({
       status: "success",
       user: {

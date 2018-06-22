@@ -10,6 +10,10 @@ import { getDateByTimestamp } from '../utils/date.js';
 
 import { observer, inject } from 'mobx-react';
 
+import GeneralHeader from '../components/general_header';
+
+import  CommentInput from '../components/comment_input';
+
 
 @inject('reviewStore')
 @inject('commentStore')
@@ -26,10 +30,12 @@ class Review extends Component {
     }
   }
   render() {
+    const { match } = this.props;
     const {currentComments } = this.props.commentStore;
     const { currentReview } = this.props.reviewStore;
-    return (
-      <div className="review-container">
+    return [
+      <GeneralHeader key="header"/>,
+      <div className="review-container" key="content">
         <div className="cover-block">
           <img src={currentReview.cover}/>
         </div>
@@ -76,8 +82,8 @@ class Review extends Component {
                       </ul>
                     </button>
                     <a className="nickname" href={"/users/" + comment.creator.id}>{comment.creator.username}</a>
-                    <p>{comment.comment}</p>
-                    <span className="date">{getDateByTimestamp(comment.created_at_timestamp)}</span>
+                    <p>{comment.content}</p>
+                    <span className="date">{getDateByTimestamp(comment.updatedAt)}</span>
                   </div>
                   
                 </div>
@@ -85,8 +91,9 @@ class Review extends Component {
             })
           }
         </div>
-      </div>
-    );
+      </div>,
+      <CommentInput key="comment" review_id={match.params.id}/>
+    ]
   }
 }
 

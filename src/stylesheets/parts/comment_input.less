@@ -1,0 +1,32 @@
+@import '../base.less';
+
+
+.comment-input-container{
+    display: flex;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    box-shadow: 0 -2px 5px rgba(140,140,140, 0.1);
+    background: @background-white;
+    input{
+        margin-right: 10px;
+        flex: 1;
+        lieng-height: 30px;
+        outline: none;
+        border: none;
+        background: @background-white;
+        border-bottom: 1px solid @text-light;
+        text-indent: 6px;
+    }
+    button{
+        height: 30px;
+        background: @main-theme;
+        outline: none;
+        color: @background-white;
+        width: 55px;
+        border-radius: 4px;
+    }
+}

@@ -4,6 +4,7 @@ import notificationStore from './notification_store';
 configure({ enforceActions: true });
 
 import axios from 'axios';
+require('promise.prototype.finally').shim();
 
 export class IndexStore {
   @observable isRequesting = false;

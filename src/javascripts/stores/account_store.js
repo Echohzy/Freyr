@@ -1,5 +1,6 @@
 import { configure, observable, action } from 'mobx';
 import axios from 'axios';
+require('promise.prototype.finally').shim();
 
 import NotificationStore from './notification_store';
 
@@ -14,7 +15,7 @@ export class AccountStore {
   @action
   getMeInfo(){
     this.isRequesting = true
-    axios.get("/api/accounts/me")
+    var test = axios.get("/api/accounts/me")
     .then(function(res){
       return res.data;
     }).then(this.getMeSuccess, this.getAccountFail)

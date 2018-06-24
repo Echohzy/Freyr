@@ -1,6 +1,7 @@
 import { observable, configure, action } from 'mobx';
 
 import axios from 'axios';
+require('promise.prototype.finally').shim();
 
 import NotificationStore from './notification_store';
 

@@ -19,6 +19,7 @@ module.exports.addReview = function(params) {
     var bp = AV.Object.createWithoutData('Book', book.id);
     review.set('title', params.title);
     review.set('content', params.content);
+    review.set('score', params.score);
     review.set('author', up);
     review.set('book', bp);
     return review.save();

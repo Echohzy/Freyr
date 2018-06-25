@@ -97,7 +97,7 @@ router.put("/:id", function(req, res) {
     }).catch(function(error) {
       res.status(400).json({
         status: 'error',
-        error: error
+        error: error.message||error
       });
     });
   }
@@ -106,13 +106,14 @@ router.put("/:id", function(req, res) {
 
 /*delete account*/
 router.delete("/:id", function(req, res) {
-  ReviewApi.updateReview(req.params.id, {"deleted": true}).then(function(data) {
+  ReviewApi.deleteReview(req.params.id).then(function(data) {
     res.json({
       status: 'success'
     });
   }).catch(function(error) {
     res.status(400).json({
-      status: 'error'
+      status: 'error',
+      error: error.message
     });
   });
 });

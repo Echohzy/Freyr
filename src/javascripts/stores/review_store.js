@@ -63,7 +63,7 @@ export class ReviewStore {
   @action
   getSingleReview(review_id){
     this.isRequesting = true;
-    axios.get("/api/reviews/"+review_id)
+    return axios.get("/api/reviews/"+review_id)
     .then(function(res){
       return res.data;
     }).then(this.getSingleReviewSuccess, this.getSingleReviewFail)
@@ -119,7 +119,7 @@ export class ReviewStore {
 
   @action.bound
   updateReviewSuccess(res){
-    this.currentReview = res.data;
+    this.currentReview = Object.assign({}, this.currentReview, res.data);
     NotificationStore.addNotification("success", "更新成功！");
   }
 
@@ -128,9 +128,24 @@ export class ReviewStore {
     NotificationStore.addNotification('error', "更新失败！");
   }
 
-  @action.bound
-  updateReviewFail(){
+  @action
+  deleteReview(id, callback){
+    this.isRequesting = true;
+    return axios({
+      url: "/api/reviews/" + id,
+      method: "delete"
+    }).then(function(res){
+      return res.data;
+    }).then(action(()=>{
+      NotificationStore.addNotification("success", "删除测评成功！");
+      callback&&callback();
+      this.currentReview = {};
+    }), this.deleteReviewFail).finally(this.requestingFinished);
+  }
 
+  @action.bound
+  deleteReviewFail(){
+    NotificationStore.addNotification('error', "删除测评失败！");
   }
 
   @action.bound

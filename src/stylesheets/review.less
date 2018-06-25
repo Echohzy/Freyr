@@ -6,11 +6,12 @@
         height: 300px;
         overflow: hidden;
         img{
-            width: 100%;
+            min-width: 100%;
+            min-height: 300px;
         }
     }
     .review-detail {
-        padding: 40px 10px 20px;
+        padding: 10px 10px 20px;
         .info {
             display: flex;
             align-items: center;
@@ -37,19 +38,31 @@
         }
         .title{
             font-size: 20px;
-            margin-top: 20px;
             font-weight: bold;
             color: @dark;
         }
         .detail{
-            margin-top: 15px;
+            margin: 15px 0;
             color: @deep-grey;
             font-size: 14px;
         }
         .detail:first-letter {
-            font-size: 36px;
+            font-size: 20px;
             float: left;
             margin-right: 4px;
+        }
+        .action{
+            font-size: 14px;
+            .date{
+                color: @deep-grey;
+            }
+            .fa{
+                color: @main-theme;
+                font-size: 15px;
+                line-height: 20px;
+                margin-left: 10px;
+                float: right;
+            }
         }
     }
     .comment-list {

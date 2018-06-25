@@ -16,10 +16,15 @@ module.exports.addReview = function(params) {
     bookQuery.equalTo("id", parseInt(params.book_id)).notEqualTo('deleted', true);
     return bookQuery.first();
   }).then(function(book){
+    book.set('score', book.get('score') + params.score);
+    book.set('review_count', book.get('review_count')+1);
+    return book.save();
+  }).then(function(book){
     var bp = AV.Object.createWithoutData('Book', book.id);
     review.set('title', params.title);
     review.set('content', params.content);
     review.set('score', params.score);
+    review.set('cover', params.cover);
     review.set('author', up);
     review.set('book', bp);
     return review.save();
@@ -63,6 +68,8 @@ module.exports.getReview = function(id) {
     var bookQuery = new AV.Query('Book');
     return bookQuery.get(review.book.objectId).then(function(book) {
       review.book = _.pick(book.toJSON(), ['publisher', 'cover', 'title', 'author', 'summary', 'cate', 'id', 'score', 'ISBN', 'price', 'review_count']);
+      delete review['deleted'];
+      delete review['objectId'];
       return review;
     });
   });
@@ -154,11 +161,43 @@ module.exports.updateReview = function(id, params) {
   var query = new AV.Query('Review');
   query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
   return query.first().then(function(review){
+    if(review.get("score") !== params.score) {
+      var bookQuery = new AV.Query('Book');
+      bookQuery.equalTo('id', parseInt(params.book_id)).notEqualTo('deleted', true);
+      return bookQuery.first().then(function(book){
+        book.set('score', book.get('score') - review.get('score') + params.score);
+        return book.save().then(function(){
+          return review;
+        });
+      });
+    } else {
+      return review;
+    }
+  }).then(function(review){
     for (var k in params) {
       review.set(k, params[k]);
     }
-    return review.save().then(function(data){
-      return data.toJSON();
-    });
+    return review.save();
+  }).then(function(review){
+    return _.pick(review.toJSON(), Object.keys(params));
   });
 };
+
+
+module.exports.deleteReview = function(id){
+  var query = new AV.Query('Review');
+  query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
+  return query.first().then(function(review){
+    var bookQuery = new AV.Query("Book");
+    return bookQuery.get(review.get("book").id).then(function(book){
+      book.set('score', book.score-review.score);
+      book.set('review_count', book.get('review_count') - 1);
+      return book.save().then(function(){
+        return review;
+      }); 
+    });
+  }).then(function(review){
+    review.set('deleted',true);
+    return review.save();
+  });
+}

@@ -24,10 +24,20 @@ class Review extends Component {
   }
   componentDidMount(){
     const { params } = this.props.match;
+    this.deleteReviewSuccess = this.deleteReviewSuccess.bind(this);
     if(params.id){
       this.props.reviewStore.getSingleReview(params.id);
       this.props.commentStore.getCommentsByReview(params.id);
     }
+  }
+  likeReview(review_id, type){
+    this.props.reviewStore.likeReview(review_id, type);
+  }
+  deleteReview(){
+    this.props.reviewStore.deleteReview(this.props.reviewStore.currentReview.id, this.deleteReviewSuccess);
+  }
+  deleteReviewSuccess(){
+    this.props.history.replace("/books/" + this.props.reviewStore.currentReview.book.id);
   }
   deleteCommentById(id){
     this.props.commentStore.deleteComment(id);
@@ -43,6 +53,7 @@ class Review extends Component {
           <img src={currentReview.cover}/>
         </div>
         <div className="review-detail">
+          <h1 className="title">{currentReview.title}</h1>
           <div className="info">
             <span className="score">
               {
@@ -56,15 +67,20 @@ class Review extends Component {
               }
             </span>
             <span className="middle">&middot;</span>
-            <i className="date">
-              {"posted " + getDateByTimestamp(currentReview.updatedAt, "YYYY-MM-DD")}
-            </i>
+            
             {
               currentReview.author?<a className="author" href={"/users/" + currentReview.author.id}><img src={currentReview.author.avatar + "?imageView2/1/w/40/h/40"} /></a>:""
             }
           </div>
-          <h1 className="title">{currentReview.title}</h1>
           <div className="detail" dangerouslySetInnerHTML={{__html: currentReview.content}}></div>
+          <div className="action">
+            <i className="date">
+              {getDateByTimestamp(currentReview.updatedAt, "YYYY-MM-DD")}
+            </i>
+            <i className="fa fa-trash" onClick={()=>this.deleteReview()}/>
+            <i className="fa fa-thumbs-o-down" onClick={()=>this.likeReview(currentReview.id, "dislike")}>{currentReview.dislike}</i>
+            <i className="fa fa-thumbs-up" onClick={()=>this.likeReview(currentReview, "like")}>{currentReview.like}</i>
+          </div>
         </div>
         <div className="comment-list">
           <h1>{currentComments.length + "条评论"}</h1>
@@ -88,7 +104,6 @@ class Review extends Component {
                     <p>{comment.content}</p>
                     <span className="date">{getDateByTimestamp(comment.updatedAt)}</span>
                   </div>
-                  
                 </div>
               );
             })

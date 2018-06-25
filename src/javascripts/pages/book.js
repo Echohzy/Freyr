@@ -80,16 +80,13 @@ class Book extends Component {
                       <Link to={"/reviews/" + review.id}><h1>{review.title}</h1></Link>
                       <p className="summary">{ review.content ? review.content.slice(0,60) + "..." : ""}</p>
                     </div>
-                    <div className="review-action">
-                      <span><i className="fa fa-thumbs-up" onClick={()=>this.likeReview(review.id, "like")}/>{review.like}</span>
-                      <span><i className="fa fa-thumbs-o-down" onClick={()=>this.likeReview(review.id, "dislike")}/>{review.dislike}</span>
-                      <span><i className="fa fa-commenting" />{review.comment_count}</span>
-                    </div>
                   </div>
                 );
               })
           }
         </div>
+      </div>,
+      <div className="add-review">
       </div>]
   }
 }

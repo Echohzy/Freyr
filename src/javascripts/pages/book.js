@@ -29,6 +29,10 @@ class Book extends Component {
   likeReview(review_id, type){
     this.props.reviewStore.likeReview(review_id, type);
   }
+  turnToNewReviewPage(){
+    const { currentBook }  = this.props.bookStore;
+    this.props.history.push("/reviews/new?book_id=" + currentBook.id)
+  }
   render() {
     const { currentBook }  = this.props.bookStore;
     const { currentReviews } = this.props.reviewStore;
@@ -90,7 +94,8 @@ class Book extends Component {
               })
           }
         </div>
-      </div>]
+      </div>,
+      <div className="add-review-button" key="add-button" onClick={()=>this.turnToNewReviewPage()}>+</div>]
   }
 }
 

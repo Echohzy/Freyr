@@ -19,17 +19,21 @@ class Editor extends Component {
     this.state = {
       content: "",
       title: "",
-      score: 0
+      score: 0,
+      cover: ""
     };
   }
-  onContentChange(value){
-    this.setState({content: value});
+  componentDidMount(){
+    const { match } = this.props;
+    if(match&&match.params.id){
+      this.props.reviewStore.getSingleReview(match.params.id).then(()=>{
+        const { currentReview } = this.props.reviewStore;
+        this.setState({content: currentReview.content, title: currentReview.content, score: currentReview.score, cover: currentReview.cover||"" });
+      })
+    }
   }
-  onTitleChange(value){
-    this.setState({title: value});
-  }
-  onChangeScore(score){
-    this.setState({score: score});
+  onStateChange(key, value){
+    this.setState({ [key] : value });
   }
   onSubmitReview(){
     var query = parseUrl(window.location.href);
@@ -50,11 +54,11 @@ class Editor extends Component {
       return;
     }
     if(currentReview.id){
-      this.props.reviewStore.updateReview({book_id: query&&query.book_id, title: this.state.title, content: this.state.content,score: this.state.score}).then(()=>{
+      this.props.reviewStore.updateReview({ id: currentReview.id, title: this.state.title, content: this.state.content,score: this.state.score, cover: this.state.cover, book_id: currentReview.book&&currentReview.book.id}).then(()=>{
         this.props.history.push("/reviews/"+this.props.reviewStore.currentReview.id);
       });
     } else {
-      this.props.reviewStore.createNewReview({book_id: query&&query.book_id, title: this.state.title, content: this.state.content, score: this.state.score}).then(()=>{
+      this.props.reviewStore.createNewReview({book_id: query&&query.book_id, title: this.state.title, content: this.state.content, score: this.state.score, cover: this.state.cover}).then(()=>{
         this.props.history.push('/reviews/' + this.props.reviewStore.currentReview.id);
       });
     }
@@ -63,19 +67,20 @@ class Editor extends Component {
     return [
       <GeneralHeader key="header"/>,
       <div className="editor-container" key="content">
-        <input type="text" className="review-title" placeholder="请输入标题~~~" value={this.state.title} onChange={(evt)=>this.onTitleChange(evt.target.value)}/>
+        <input type="text" className="review-title" placeholder="请输入标题~~~" value={this.state.title} onChange={(evt)=>this.onStateChange("title", evt.target.value)}/>
+        <input type="text" className="review-cover" placeholder="请输入封面地址URL~~~" value={this.state.cover} onChange={(evt)=>this.onStateChange("cover", evt.target.value)} />
         <div className="review-score">
           {
             [1,2,3,4,5].map((num)=>{
               if(this.state.score<num){
-                return <i key={num} className="fa fa-star-o" onClick={()=>this.onChangeScore(num)}/>
+                return <i key={num} className="fa fa-star-o" onClick={()=>this.onStateChange("score",num)}/>
               } else {
-                return <i key={num} className="fa fa-star" onClick={()=>this.onChangeScore(num)}/>
+                return <i key={num} className="fa fa-star" onClick={()=>this.onStateChange("score", num)} />
               }
             })
           }
         </div>
-        <textarea className="review-content" value={this.state.content} placeholder="请输入书评~~~" onChange={(evt)=>this.onContentChange(evt.target.value)}/>
+        <textarea className="review-content" value={this.state.content} placeholder="请输入书评~~~" onChange={(evt)=>this.onStateChange("content", evt.target.value)}/>
         <div className="footer">
           <button onClick={()=>this.onSubmitReview()}>发布</button>
         </div>

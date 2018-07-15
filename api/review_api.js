@@ -37,6 +37,7 @@ module.exports.addReview = function(params) {
       id: review.id,
       title: review.title,
       content: review.content,
+      cover: review.cover,
       author: {
         id: currentUser.get('id'),
         avatar: currentUser.get('avatar'),
@@ -48,7 +49,6 @@ module.exports.addReview = function(params) {
 };
 
 module.exports.getReview = function(id) {
-
   var query = new AV.Query('Review');
   query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
   return query.first().then(function(result){
@@ -68,9 +68,7 @@ module.exports.getReview = function(id) {
     var bookQuery = new AV.Query('Book');
     return bookQuery.get(review.book.objectId).then(function(book) {
       review.book = _.pick(book.toJSON(), ['publisher', 'cover', 'title', 'author', 'summary', 'cate', 'id', 'score', 'ISBN', 'price', 'review_count']);
-      delete review['deleted'];
-      delete review['objectId'];
-      return review;
+      return _.pick(review, ["book", 'author', 'comment', 'content', 'updatedAt', 'dislike', 'id', 'like', 'score', 'title', 'cover']);
     });
   });
 };

@@ -16,7 +16,15 @@ module.exports.getBook = function(id) {
   var query = new AV.Query('Book');
    query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
    return query.first().then(function(result){
-      return Promise.resolve(result);
+     try{
+       var book = result.toJSON();
+       return book;
+     }catch(e){
+       return Promise.reject('Can not found');
+     }
+   }).then(function(book){
+     book.score = book.score / book.review_count;
+     return _.pick(book, ['ISBN', 'author', 'cover', 'updatedAt', 'id', 'price', 'publisher', 'review_count', 'score', 'summary', 'title']);
    });
 };
 

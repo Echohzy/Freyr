@@ -14,7 +14,7 @@ const LIKE_MAP = {
 
 export class ReviewStore {
   @observable currentReviews = [];
-  @observable currentReview = [];
+  @observable currentReview = {};
   @observable isRequesting = false;
 
   @action
@@ -54,6 +54,9 @@ export class ReviewStore {
         }
         return r;
       });
+      if(this.currentReview.id==review_id){
+        this.currentReview = Object.assign({}, this.currentReview, res.data);
+      }
       NotificationStore.addNotification("success", LIKE_MAP[type] + "成功")
     }), action((res)=>{
       NotificationStore.addNotification("error", res.response.data.error);

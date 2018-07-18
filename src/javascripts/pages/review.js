@@ -14,7 +14,7 @@ import GeneralHeader from '../components/general_header';
 
 import  CommentInput from '../components/comment_input';
 
-
+@inject('accountStore')
 @inject('reviewStore')
 @inject('commentStore')
 @observer
@@ -33,6 +33,10 @@ class Review extends Component {
   likeReview(review_id, type){
     this.props.reviewStore.likeReview(review_id, type);
   }
+  turnToEditPage(){
+    const { currentReview } = this.props.reviewStore;
+    this.props.history.push("/reviews/" + currentReview.id + "/edit");
+  }
   deleteReview(){
     this.props.reviewStore.deleteReview(this.props.reviewStore.currentReview.id, this.deleteReviewSuccess);
   }
@@ -46,6 +50,7 @@ class Review extends Component {
     const { match } = this.props;
     const {currentComments } = this.props.commentStore;
     const { currentReview } = this.props.reviewStore;
+    const { currentAccount } = this.props.accountStore;
     return [
       <GeneralHeader key="header"/>,
       <div className="review-container" key="content">
@@ -77,9 +82,10 @@ class Review extends Component {
             <i className="date">
               {getDateByTimestamp(currentReview.updatedAt, "YYYY-MM-DD")}
             </i>
-            <i className="fa fa-trash" onClick={()=>this.deleteReview()}/>
+            {currentReview.author&&currentAccount.id==currentReview.author.id?<i className="fa fa-trash" onClick={()=>this.deleteReview()}/>:""}
+            {currentReview.author&&currentAccount.id==currentReview.author.id?<i className="fa fa-pencil" onClick={()=>this.turnToEditPage()}/>:""}
             <i className="fa fa-thumbs-o-down" onClick={()=>this.likeReview(currentReview.id, "dislike")}>{currentReview.dislike}</i>
-            <i className="fa fa-thumbs-up" onClick={()=>this.likeReview(currentReview, "like")}>{currentReview.like}</i>
+            <i className="fa fa-thumbs-up" onClick={()=>this.likeReview(currentReview.id, "like")}>{currentReview.like}</i>
           </div>
         </div>
         <div className="comment-list">

@@ -15,6 +15,7 @@ var notification = require('./routes/notification');
 var book = require('./routes/book');
 var review = require('./routes/review');
 var comment = require('./routes/comment');
+var search = require('./routes/search');
 
 
 var webpackDevMiddleware = require("webpack-dev-middleware");
@@ -48,6 +49,7 @@ app.use("/api/notifications", notification);
 app.use("/api/books", book);
 app.use('/api/reviews', review);
 app.use('/api/comments', comment);
+app.use('/api/search', search);
 app.use('/', page);
 
 // catch 404 and forward to error handler

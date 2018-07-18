@@ -49,10 +49,12 @@ class Search extends Component {
       var current_query = parseUrl(location.search);
       var query = parseUrl(nextProps.location.search);
       this.setState({activeKey: query.type||"book"});
-      if(!query.type||query.type==="book"){
-        this.props.searchStore.getSearchResult({type: query.type||"book", keyword: query.keyword});
-      } else if(query.type==="review"){
-        this.props.searchStore.getSearchResult({type: query.type, keyword: query.keyword});
+      if(query.keyword){
+        if(!query.type||query.type==="book"){
+          this.props.searchStore.getSearchResult({type: query.type||"book", keyword: query.keyword});
+        } else if(query.type==="review"){
+          this.props.searchStore.getSearchResult({type: query.type, keyword: query.keyword});
+        }
       }
     }
   }
@@ -62,10 +64,10 @@ class Search extends Component {
       <div className="search-container" key="search-content">
         <Tabs activeKey={this.state.activeKey}>
           <Item itemKey="book" title={<button onClick={()=>this.changeActiveKey("book")}>Books</button>}>
-            <SearchList data={this.props.searchStore.searchBooks} result_count={this.props.searchStore.searchBooks.length}/>
+            <SearchList data={this.props.searchStore.searchBooks} result_count={this.props.searchStore.searchBooks.length} type="book"/>
           </Item>
           <Item itemKey="review" title={<button onClick={()=>this.changeActiveKey("review")}>Reviews</button>}>
-            <SearchList data={this.props.searchStore.searchReviews} result_count={this.props.searchStore.searchReviews.length}/>
+            <SearchList data={this.props.searchStore.searchReviews} result_count={this.props.searchStore.searchReviews.length} type="review"/>
           </Item>
         </Tabs>
       </div>];

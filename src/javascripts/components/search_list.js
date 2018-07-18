@@ -7,15 +7,16 @@ export default class SearchList extends Component {
     super(props);
   }
   getSearchItem(item) {
+    const { type } = this.props;
     return (
       <div className="search-item" key={item.id}>
         <div className="img-wrapper">
           <img src={item.cate==='book'?item.cover+"?imageView2/1/w/30/h/50":item.post+"?imageView2/1/w/30/h/50"}/>
         </div>
         <div className="item-info">
-          <a href={item.cate==="movie"?"/movies/"+item.id:"/books/"+item.id}>{item.cate==="movie"?item.name:item.title}</a>
+          <a href={type==="review"?"/reviews/"+item.id:"/books/"+item.id}>{item.title}</a>
           {
-            item.cate==="movie"?
+            item.cate==="review"?
             <p>{"类型：" + item.types.join("/")}</p>:
             <p>{"作者：" + item.author}</p>
           }

@@ -23,10 +23,12 @@ export default class SearchHeader extends Component {
     this.setState({keyword: value});
   }
   changeSearchUrl() {
-    this.props.history.push({
-      pathname: "/search",
-      search: "?keyword="+encodeURIComponent(this.state.keyword)
+    let query = parseUrl(window.location.href), query_arr=[];
+    query['keyword'] = encodeURIComponent(this.state.keyword);
+    Object.keys(query).map(function(key){
+      query_arr.push(key + "=" + query[key]);
     });
+    this.props.history.push("/search?" + query_arr.join("&"));
   }
   closePage() {
     this.props.history.goBack();

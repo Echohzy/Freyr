@@ -26,12 +26,22 @@ module.exports.getSearchReviews = function(keyword){
   return query.find().then(function(result){
     return result;
   }).then(function(reviews){
-    var res = [];
-    reviews.forEach((review)=>{
-      var tmp = review.toJSON();
-      res.push(_.pick(tmp,  ["like", "content", "title", "id", "score", "comment", "dislike", "updatedAt"]));
+    var ps = []
+    reviews.map(function(review){
+      var user_query = new AV.Query('_User');
+      ps.push(user_query.get(review.author.objectId).then(function(data){
+        return data.toJSON();
+      }).then(function(author){
+        review = _.pick(review.toJSON(), ["like", "content", "title", "id", "score", "comment", "dislike", "updatedAt"]);
+        review.author = {
+          id: author.id,
+          avatar: author.avatar,
+          username: author.username
+        };
+        return review;
+      }))
     });
-    return res;
+    return Promise.all(ps);
   });
 }
 

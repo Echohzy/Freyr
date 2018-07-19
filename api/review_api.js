@@ -115,6 +115,31 @@ module.exports.getBookReviews = function(book_id) {
   });
 }
 
+module.exports.getReviewsByUserId = function(user_id){
+  var user_query = new AV.Query('_User');
+  var user = {};
+  user_query.equalTo('id', parseInt(user_id)).notEqualTo('deleted', true);
+  return user_query.first().then(function(user){
+    return user.toJSON();
+  }).then(function(u){
+    var review_query = new AV.Query('Review');
+    var user_pointer = AV.Object.createWithoutData('_User', u.objectId);
+    user = _.pick(u, ['id', 'avatar', 'username']);
+    review_query.equalTo("author", user_pointer).notEqualTo('deleted', true);
+    return review_query.find();
+  }).then(function(reviews){
+    var res = [], tmp;
+
+    reviews.forEach(function(r){
+      tmp = _.pick(r.toJSON(), ["like", "content", "title", "id", "score", "comment", "dislike", "updatedAt"]);
+      tmp.author = user;
+      res.push(tmp);
+    });
+
+    return res;
+  });
+}
+
 
 module.exports.likeOrDislikeReview = function(user_id, review_id, type){
   var userQuery = new AV.Query("_User");

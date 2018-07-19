@@ -10,6 +10,7 @@ export class AccountStore {
   @observable isRequesting=false;
   @observable currentAccount = {};
   @observable targetAccount = {};
+  @observable targetAccountReviews = [];
 
 
   @action
@@ -34,6 +35,19 @@ export class AccountStore {
       return res.data;
     }).then(this.getTargetAccount, this.getAccountFail)
     .finally(this.requestingFinished)
+  }
+
+  @action
+  getReviewsByAccountId(id){
+    axios.get("/api/reviews/users/" + id)
+    .then(function(res){
+      return res.data;
+    }).then(this.getReviewsByAccountIdSuccess);
+  }
+
+  @action.bound
+  getReviewsByAccountIdSuccess(res){
+    this.targetAccountReviews = res.data;
   }
 
   @action.bound

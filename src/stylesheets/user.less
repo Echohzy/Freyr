@@ -136,14 +136,17 @@
                 font-size: 14px;
                 color: @deep-grey;
                 flex: 1;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
             button{
                 margin-left: 10px;
                 color: @cloudy-blue;
             }
         }
-        .review-block + .review-block{
-            border-top: 1px solid @cloudy-blue;
+        .review-block{
+            border-bottom: 1px solid @cloudy-blue;
         }
     }
 }

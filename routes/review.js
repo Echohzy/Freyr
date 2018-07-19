@@ -40,6 +40,21 @@ router.get("/books/:id", function(req, res) {
   })
 });
 
+router.get("/users/:id", function(req, res){
+  ReviewApi.getReviewsByUserId(req.params.id)
+  .then(function(data){
+    res.json({
+      status: "success",
+      data: data
+    });
+  }).catch(function(error){
+    res.status(404).json({
+      status: 'error',
+      error: error
+    });
+  })
+})
+
 
 router.post("/:id/like", function(req, res) {
   var cookies = req.cookies;

@@ -84,6 +84,43 @@ export class AccountStore {
     })).finally(this.requestingFinished);
   }
 
+
+  @action
+  deleteUserReview(id){
+    this.isRequesting = true;
+    axios({
+      method: "delete",
+      url: "/api/reviews/" + id, 
+    }).then(action(()=>{
+      NotificationStore.addNotification("success", "删除成功");
+      this.targetAccountReviews = this.targetAccountReviews.filter(function(review){
+        return review.id != id;
+      });
+    })).finally(this.requestingFinished)
+  }
+
+
+  @action
+  updateUserInfo(params){
+    this.isRequesting = true;
+    axios({
+      url: "/api/accounts/me",
+      method: "put",
+      data: params
+    }).then(this.updateUserInfoSuccess, this.updateUserInfoFail)
+    .finally(this.requestingFinished);
+  }
+
+  @action.bound
+  updateUserInfoSuccess(currentAccount){
+    NotificationStore.addNotification("success", "更新成功");
+    this.currentAccount = currentAccount;
+  }
+
+  @action.bound
+  updateUserInfoFail(){
+    NotificationStore.addNotification("error", "更新失败");
+  }
 }
 
 export default new AccountStore();

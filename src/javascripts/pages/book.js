@@ -6,8 +6,6 @@ import { observer, inject } from 'mobx-react';
 
 import { Link } from 'react-router-dom';
 
-import axios from 'axios';
-
 import GeneralHeader from '../components/general_header';
 
 import '../../stylesheets/book.less';

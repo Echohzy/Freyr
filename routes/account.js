@@ -68,7 +68,8 @@ router.get("/me", function(req, res) {
         account: {
           avatar: data.avatar,
           username: data.username,
-          id: data.id
+          id: data.id,
+          sex: data.sex
         }
       });
     }).catch(function(error){
@@ -102,18 +103,26 @@ router.get("/:id", function(req, res) {
 
 
 /*update account*/
-router.put("/:id", function(req, res) {
-  AccountApi.updateAccount(req.params.id, req.body).then(function(data) {
-    res.json({
-      status: 'success',
-      data: data
+router.put("/me", function(req, res) {
+  var cookie = req.cookies;
+  if(!cookie||!cookie.id){
+    res.status(401).json({
+      status: "error",
+      message: "invalid authentication"
     });
-  }).catch(function(error) {
-    res.status(400).json({
-      status: 'error',
-      error: error
+  } else {
+    AccountApi.updateAccount(cookie.id, req.body).then(function(data) {
+      res.json({
+        status: 'success',
+        data: data
+      });
+    }).catch(function(error) {
+      res.status(400).json({
+        status: 'error',
+        error: error
+      });
     });
-  });
+  }
 });
 
 

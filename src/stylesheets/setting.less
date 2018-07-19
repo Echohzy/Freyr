@@ -1,0 +1,53 @@
+@import 'base.less';
+
+.setting-container{
+    padding: 50px 0;
+    .img-container{
+        height: 200px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            height: 70px;
+            width:70px;
+            .border-radius(50%);
+        }
+    }
+    .edit-block{
+        padding: 15px;
+        .edit-item{
+            display: flex;
+            color: @warm-grey;
+            padding: 5px 0;
+            font-size: 16px;
+            input{
+                flex: 1;
+                font-size: 16px;
+                text-indent: 5px;
+                margin-left: 10px;
+                border: none;
+                outline: none;
+                background: @background-white;
+            }
+            .fa{
+                font-size: 20px;
+                margin-left: 15px;
+            }
+            .select{
+                color: @main-theme;
+            }
+        }
+    }
+    .button-container{
+        text-align: center;
+        button{
+            font-size: 14px;
+            color: @background-white;
+            padding: 8px 0;
+            width: 100px;
+            background: @main-theme;
+            .border-radius(4px);
+        }
+    }
+}

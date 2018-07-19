@@ -24,6 +24,7 @@ import Notification from './pages/notification.js';
 import Editor from './pages/editor.js';
 import Book from './pages/book.js';
 import SignIn from './pages/sign_in';
+import Setting from './pages/setting'
 
 import indexStore from './stores/index_store';
 import notificationStore from './stores/notification_store';
@@ -59,6 +60,7 @@ ReactDOM.render(
           <Route path="/users/:id" component={User} />
           <Route path="/notifications" component={Notification}/>
           <Route path="/sign_in" component={SignIn}/>
+          <Route path="/setting" component={Setting}/>
         </Switch>
       </App>
     </Router>

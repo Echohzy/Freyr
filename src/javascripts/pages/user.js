@@ -8,11 +8,9 @@ import Tabs from '../components/tabs.js';
 
 const { Item } = Tabs;
 
-import InterestList from '../components/interest_list.js';
-
-import CollectionList from '../components/collection_list.js';
-
 import ReviewList from '../components/review_list.js';
+
+import GeneralHeader from '../components/general_header.js';
 
 import { parseUrl } from '../utils/location.js';
 
@@ -37,9 +35,10 @@ class User extends Component {
     this.props.accountStore.getReviewsByAccountId(match.params.id);
   }
   render() {
-    const { targetAccount, targetAccountReviews } = this.props.accountStore;
-    return (
-      <div className="user-container">
+    const { targetAccount, targetAccountReviews, currentAccount } = this.props.accountStore;
+    return [
+      <GeneralHeader key="header"/>,
+      <div className="user-container" key="user">
         <div className="user-info-card" style={{backgroundImage: "url("+targetAccount.background+")"}}>
           <div className="avatar-wrapper">
             <img src={targetAccount.avatar + "?imageView2/1/h/80/w/80"} />
@@ -48,11 +47,13 @@ class User extends Component {
         </div>
         <Tabs activeKey={this.state.activeKey}>
           <Item itemKey={"reviews"} title={<button >Reviews</button>}>
-            <ReviewList data={targetAccountReviews} />
+            <ReviewList
+              data={targetAccountReviews}
+              own={currentAccount.id===targetAccount.id}
+              accountStore={this.props.accountStore}/>
           </Item>
         </Tabs>
-      </div>
-    );
+      </div>]
   }
 }
 

@@ -16,9 +16,14 @@ import ReviewList from '../components/review_list.js';
 
 import { parseUrl } from '../utils/location.js';
 
+import { observer, inject } from 'mobx-react';
+
 import "../../stylesheets/user.less";
 
-export default class User extends Component {
+
+@inject("accountStore")
+@observer
+class User extends Component {
   constructor(props) {
     super(props);
     let query = parseUrl(location.href);
@@ -87,4 +92,6 @@ export default class User extends Component {
     );
   }
 }
+
+export default User;
 

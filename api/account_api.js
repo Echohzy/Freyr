@@ -33,12 +33,11 @@ module.exports.updateAccount = function(id, params) {
   var query = new AV.Query('_User');
   query.equalTo('id', parseInt(id)).notEqualTo('deleted', true);
   return query.first().then(function(account){
-    return account;
-      // for( var k in params ) {
-      //   console.log(account.set);
-      //   account.set(k, params[k]);
-      // }
-      // return account.save();
+      for( var k in params ) {
+        console.log(params[k]);
+        account.set(k, params[k]);
+      }
+      return account.save();
   }).then(function(data){
     console.log(data);
     return _.pick(data.toJSON(), ['avatar', 'username', 'sex', 'id']);

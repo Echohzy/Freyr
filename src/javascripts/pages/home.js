@@ -8,6 +8,8 @@ import HomeList from "../components/home_list.js";
 
 import GeneralHeader from '../components/general_header.js';
 
+import GeneralFooter from '../components/general_footer.js';
+
 const { Item } = Tabs;
 
 import axios from 'axios';
@@ -41,7 +43,8 @@ class Home extends Component {
             <HomeList indexStore={this.props.indexStore} active={this.state.activeKey==="hot"} push={this.props.history.push}/>
           </Item>
         </Tabs>
-      </div>]
+      </div>,
+      <GeneralFooter key="footer"/>]
   }
 }
 

@@ -1,16 +1,41 @@
 var AV = require('leancloud-storage');
+var _ = require('lodash');
 
 module.exports.addCollection = function(params) {
   var collection = new AV.Object('Collection');
-  collection.set('collection_type', params.collection_type);
-  var user = AV.Object.createWithoutData('Account', params.user_id);
-  collection.set('user', user);
-  if (params.review_id) {
-    var review = AV.Object.createWithoutData('Review', params.review_id);
-    collection.set('review', review);
-  }
-  return collection.save().then(function(data){
-    return data.toJSON();
+  var user_query = new AV.Query('_User');
+  var u, b;
+  user_query.equalTo('id', params.user_id).notEqualTo('deleted'. true);
+  return user_query.first().then(function(user){
+    u = user;
+    var up = AV.Object.createWithoutData('_User', user.id);
+    var book_query = new AV.Query("Book");
+    collection.set("user", up);
+    book_query.equalTo('id', params.book_id).notEqualTo('deleted', true);
+    return book_query.first();
+  }).then(function(book){
+    b = book;
+    var bp = AV.Object.createWithoutData('Book', book.id);
+    collection.save("book", bp);
+    return collection.save();
+  }).then(function(collection){
+    var query = new AV.Query("Collection");
+    return query.get(collection.id).then(function(c){
+      return {
+        id: c.id,
+        user:{
+          id: u.get('id'),
+          avatar: u.get('avatar'),
+          username: u.get('username')
+        },
+        book:{
+          id: b.get('id'),
+          title: b.get('title'),
+          score: b.get('score'),
+          review_count: b.get('review_count')
+        }
+      }
+    });
   });
 }
 

@@ -8,7 +8,7 @@ module.exports.addBook = function(params) {
     book.set(k, params[k]);
   }
   return book.save().then(function(data) {
-    return Promise.resolve(data);
+    return AV.Promise.resolve(data);
   });
 };
 
@@ -20,7 +20,7 @@ module.exports.getBook = function(id) {
        var book = result.toJSON();
        return book;
      }catch(e){
-       return Promise.reject('Can not found');
+       return AV.Promise.reject('Can not found');
      }
    }).then(function(book){
      book.score = book.score / book.review_count;
@@ -38,7 +38,7 @@ module.exports.getBooks = function(params){
         return _.pick(book, ["publisher","cover","title","author","summary","cate","id","score","ISBN","price","review_count","createdAt","updatedAt"]);
       });
     }catch(error){
-      return Promise.reject("can not found");
+      return AV.Promise.reject("can not found");
     }
   });
 }

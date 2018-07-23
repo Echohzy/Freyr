@@ -10,7 +10,6 @@ var page = require('./routes/page');
 
 
 var account = require('./routes/account');
-var movie = require('./routes/movie');
 var notification = require('./routes/notification');
 var book = require('./routes/book');
 var review = require('./routes/review');
@@ -44,7 +43,6 @@ app.use(webpackDevMiddleware(compiler,{
 }));
 app.use(require("webpack-hot-middleware")(compiler));
 app.use("/api/accounts", account);
-app.use("/api/movies", movie);
 app.use("/api/notifications", notification);
 app.use("/api/books", book);
 app.use('/api/reviews', review);

@@ -10,6 +10,8 @@ const { Item } = Tabs;
 
 import ReviewList from '../components/review_list.js';
 
+import CollectionList from '../components/collection_list.js';
+
 import GeneralHeader from '../components/general_header.js';
 
 import { parseUrl } from '../utils/location.js';
@@ -18,7 +20,7 @@ import { observer, inject } from 'mobx-react';
 
 import "../../stylesheets/user.less";
 
-
+@inject("collectionStore")
 @inject("accountStore")
 @observer
 class User extends Component {
@@ -33,9 +35,14 @@ class User extends Component {
     const { match } = this.props;
     this.props.accountStore.getAccountById(match.params.id);
     this.props.accountStore.getReviewsByAccountId(match.params.id);
+    this.props.collectionStore.getCollections({user_id: match.params.id});
+  }
+  changeActiveKey(key){
+    this.setState({activeKey: key});
   }
   render() {
     const { targetAccount, targetAccountReviews, currentAccount } = this.props.accountStore;
+    const { currentCollections } = this.props.collectionStore;
     return [
       <GeneralHeader key="header"/>,
       <div className="user-container" key="user">
@@ -46,11 +53,17 @@ class User extends Component {
           <p className="nickname">{targetAccount.nickname}</p>
         </div>
         <Tabs activeKey={this.state.activeKey}>
-          <Item itemKey={"reviews"} title={<button >Reviews</button>}>
+          <Item itemKey={"reviews"} title={<button onClick={()=>this.changeActiveKey("reviews")}>Reviews</button>}>
             <ReviewList
               data={targetAccountReviews}
               own={currentAccount.id===targetAccount.id}
               accountStore={this.props.accountStore}/>
+          </Item>
+          <Item itemKey={"collections"} title={<button onClick={()=>this.changeActiveKey("collections")}>Collections</button>}>
+            <CollectionList
+              data={currentCollections}
+              own={currentAccount.id===targetAccount.id}
+              collectionStore={this.props.currentStore}/>
           </Item>
         </Tabs>
       </div>]

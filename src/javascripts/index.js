@@ -33,6 +33,7 @@ import bookStore from './stores/book_store';
 import reviewStore from './stores/review_store';
 import commentStore from './stores/comment_store';
 import searchStore from './stores/search_store';
+import collectionStore from './stores/collection_store';
 
 const history  = createBrowserHistory();
 
@@ -43,7 +44,8 @@ const store = {
   bookStore,
   reviewStore,
   commentStore,
-  searchStore
+  searchStore,
+  collectionStore
 };
 
 ReactDOM.render(

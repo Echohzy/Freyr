@@ -12,8 +12,6 @@ import GeneralFooter from '../components/general_footer.js';
 
 const { Item } = Tabs;
 
-import axios from 'axios';
-
 import { observer, inject } from 'mobx-react';
 
 import '../../stylesheets/home.less';

@@ -12,7 +12,9 @@ import axios from 'axios';
 
 import { observer, inject } from 'mobx-react';
 
-import "../../stylesheets/form.less";
+import {  Link } from 'react-router-dom';
+
+import "../../stylesheets/sign_in.less";
 
 const attr_settings = {
   username: FormSetting.username,
@@ -31,6 +33,31 @@ class SignIn extends Component {
   }
   onTextValueChange(attr, value) {
     this.setState({[attr]: value});
+  }
+  onInputChange(attr, value){
+    this.onTextValueChange(attr, {status: "editing", value: value});
+  }
+  onInputFocus(attr){
+    var info = this.state[attr];
+    this.onTextValueChange(attr, {value: info.value, status: "editing"});
+  }
+  onInputBlur(key){
+    const { required, validation } = attr_settings[key];
+    const { value } = this.state[key];
+    const toString = Object.prototype.toString;
+    let attr = {value: value};
+    if(required&&!value){
+      attr.status = "error";
+    } else if (validation) {
+      if (toString.call(validation)==="[object RegExp]") {
+        attr.status = validation.test(value)?"passed":"error";
+      } else if(toString.call(validation)==="[object Function]") {
+        attr.status = validation(value)?"passed":"error";
+      }
+    } else {
+      attr.status = "passed";
+    }
+    this.onTextValueChange(key, attr);
   }
   onSignIn(){
     if(this.props.accountStore.isRequesting){
@@ -62,20 +89,38 @@ class SignIn extends Component {
   render(){
     return (
       [<header key="header"><h1>Freyr</h1></header>,
-      <div className="form-container" key="form">
-        <div className="logo-wrapper">
-          <img src="../../images/logo2.png"/>
+      <div className="form-container sign-in-container" key="form">
+        <div className="text-input-box">
+          <label><i className="fa fa-user" /></label>
+          <input
+            type="text"
+            placeholder="USERNAME"
+            onBlur={()=>this.onInputBlur("username")}
+            onChange={(evt)=>this.onInputChange("username", evt.target.value)}
+            onFocus={()=>this.onInputFocus("username")}/>
         </div>
-        <TextInput
-          {...this.state.username}
-          {...attr_settings.username}
-          onTextChange={(value)=>this.onTextValueChange('username', value)}/>
-        <TextInput
-          {...this.state.password}
-          {...attr_settings.password}
-          onTextChange={(value)=>this.onTextValueChange('password', value)}/>  
+        <div className="text-input-box">
+          <label><i className="fa fa-lock" /></label>
+          <input
+            type="password"
+            placeholder="PASSWORD"
+            onBlur={()=>this.onInputBlur("password")}
+            onChange={(evt)=>this.onInputChange("password", evt.target.value)}
+            onFocus={()=>this.onInputFocus("password")}/>
+        </div>
+        <div className="forget-password">
+          <Link to="#">forgot it?</Link>
+        </div>
         <div className="form-action">
-          <button className="submit" onClick={()=>this.onSignIn()}>登录</button>
+          <button className="submit" onClick={()=>this.onSignIn()}>SIGN IN</button>
+        </div>
+        <div className="other-sign-in-type">
+          <div className="text">{"or sign in with"}</div>
+          <div className="buttons">
+            <button><i className="fa fa-wechat" /></button>
+            <button><i className="fa fa-weibo" /></button>
+            <button><i className="fa fa-qq" /></button>
+          </div>
         </div>
       </div>]
     );

@@ -13,13 +13,6 @@ export default class GeneralFooter extends Component {
       <div className="general-footer-container">
         <div className="footer-block">
           <button className="normal">
-            <i className="fa fa-comments" />
-            <br />
-            借阅
-          </button>
-        </div>
-        <div className="footer-block">
-          <button className="normal">
             <i className="fa fa-home" />
             <br />
             主页

@@ -73,7 +73,8 @@ export class CollectionStore {
   deleteCollectionSuccess(id){
     this.currentCollections = this.currentCollections.filter(function(c){
       return c.id!==id;
-    })
+    });
+    NotificationStore.addNotification('success', '删除成功');
   }
 
   @action.bound

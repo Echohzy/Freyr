@@ -18,6 +18,7 @@ import '../../stylesheets/home.less';
 
 
 @inject("indexStore")
+@inject("collectionStore")
 @observer
 class Home extends Component {
   constructor(props){
@@ -35,10 +36,10 @@ class Home extends Component {
       <div className="home-container" key="home">
         <Tabs activeKey={this.state.activeKey}>
           <Item itemKey="new" title={<button onClick={()=>this.changeActiveKey("new")}>New</button>}>
-            <HomeList indexStore={this.props.indexStore} active={this.state.activeKey==="new"} push={this.props.history.push}/>
+            <HomeList collectionStore={this.props.collectionStore} indexStore={this.props.indexStore} active={this.state.activeKey==="new"} push={this.props.history.push}/>
           </Item>
-          <Item itemKey="hoe" title={<button onClick={()=>this.changeActiveKey("hot")}>Hot</button>}>
-            <HomeList indexStore={this.props.indexStore} active={this.state.activeKey==="hot"} push={this.props.history.push}/>
+          <Item itemKey="hot" title={<button onClick={()=>this.changeActiveKey("hot")}>Hot</button>}>
+            <HomeList collectionStore={this.props.collectionStore} indexStore={this.props.indexStore} active={this.state.activeKey==="hot"} push={this.props.history.push}/>
           </Item>
         </Tabs>
       </div>,

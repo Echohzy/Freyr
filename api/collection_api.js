@@ -5,7 +5,7 @@ module.exports.addCollection = function(params) {
   var collection = new AV.Object('Collection');
   var user_query = new AV.Query('_User');
   var u, b;
-  user_query.equalTo('id', params.user_id).notEqualTo('deleted'. true);
+  user_query.equalTo('id', parseInt(params.user_id)).notEqualTo('deleted',true);
   return user_query.first().then(function(user){
     u = user;
     var up = AV.Object.createWithoutData('_User', user.id);
@@ -22,7 +22,7 @@ module.exports.addCollection = function(params) {
     var query = new AV.Query("Collection");
     return query.get(collection.id).then(function(c){
       return {
-        id: c.id,
+        id: c.get('id'),
         user:{
           id: u.get('id'),
           avatar: u.get('avatar'),
@@ -68,7 +68,8 @@ module.exports.getCollectionsByUser = function(user_id){
           },
           book: {
             id: book.get("id"),
-            title: book.get("title")
+            title: book.get("title"),
+            cover: book.get('cover')
           }
         }
       }));

@@ -51,75 +51,32 @@
             display: block;
         }
     }
-    .interest-list {
-        padding: 10px;
-        .interest-block {
-            display: flex;
-            padding: 10px;
-            background: @white;
-            .border-radius(4px);
-            .box-shadow(0 0 10px rgba(223, 224, 223, 0.6));
-            .image-wrapper{
-                height: 80px;
-                width: 50px;
-                overflow: hidden;
-                margin-right: 10px;
-            }
-            .info {
-                flex: 1;
-                .name {
-                    position: relative;
-                    a {
-                        font-size: 16px;
-                        color: @deep-grey;
-                    }
-                    .type-block{
-                        display: inline-block;
-                        background: @main-theme;
-                        padding: 0 2px;
-                        vertical-align: text-bottom;
-                        color: @background-white;
-                        .border-radius(4px);
-                        margin-left: 4px;
-                    }
-                    .delete-button {
-                        float: right;
-                        color: @deep-grey;
-                    }
-                }
-                .types {
-                    margin-top: 6px;
-                    color: @warm-grey;
-                }
-            }
-            .score {
-                margin-top: 6px;
-                font-size: 14px;
-                color: @yellow;
-            }
-        }
-        .interest-block + .interest-block {
-            margin-top: 10px;
-        }
-    }
     .collection-list {
         .collection-block{
             padding: 10px;
             display: flex;
             align-items: center;
-            .user-link{
-                height: 40px;
-                width: 40px;
-                .border-radius(20px);
-                overflow: hidden;
-            }
             .collection-content{
                 margin: 0 10px;
                 flex: 1;
                 font-size: 14px;
                 color: @deep-grey;
             }
+            img{
+                height: 40px;
+                width: 60px;
+                margin-right: 10px;
+            }
+            .book-title{
+                flex: 1;
+                font-size: 14px;
+                color: @deep-grey;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
             button{
+                width: 40px;
                 font-size: 12px;
                 color: @cloudy-blue;
             }
@@ -132,6 +89,7 @@
         .review-block{
             padding: 10px;
             display: flex;
+
             a{
                 font-size: 14px;
                 color: @deep-grey;

@@ -19,7 +19,7 @@ export default class BookCard extends Component {
               <ul className="menu">
                 <div className="triangle">
                 </div>
-                <li>收藏</li>
+                <li onClick={()=>this.props.collectionStore.addCollection({book_id: data.id})}>收藏</li>
               </ul>
             </button>
           </div>

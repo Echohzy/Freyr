@@ -63,7 +63,7 @@ class User extends Component {
             <CollectionList
               data={currentCollections}
               own={currentAccount.id===targetAccount.id}
-              collectionStore={this.props.currentStore}/>
+              collectionStore={this.props.collectionStore}/>
           </Item>
         </Tabs>
       </div>]

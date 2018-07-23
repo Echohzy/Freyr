@@ -36,7 +36,7 @@ class HomeList extends Component {
       <div className="home-list">
         {
           this.props.indexStore.books.map((data)=>{
-            return <BookCard data={data} key={data.id}/>
+            return <BookCard data={data} key={data.id} collectionStore={this.props.collectionStore}/>
           })
         }
         {

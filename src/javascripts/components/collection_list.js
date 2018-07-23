@@ -16,9 +16,9 @@ export default class CollectionList extends Component {
           data && data.map((item)=>{
             return (
               <div className="collection-block" key={item.id}>
-                <img src={item.cover + "?imageView2/1/h/100/w/80"}/>
-                <Link to={"/books/" + item.id}>{item.title}</Link>
-                {own?<button className="delete-button">删除</button>:""}
+                <img src={item.book.cover + "?imageView2/1/h/40/w/60"}/>
+                <Link className="book-title" to={"/books/" + item.book.id}>{item.book.title}</Link>
+                {own?<button className="delete-button" onClick={()=>this.props.collectionStore.deleteCollection(item.id)}>删除</button>:""}
               </div>
             );
           })

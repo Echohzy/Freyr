@@ -1,0 +1,76 @@
+@import 'base.less';
+
+.sign-in-container{
+    padding-top: 150px;
+    .form-action{
+        text-align: center;
+        .submit{
+            margin-top: 20px;
+            display: inline-block;
+            width: 200px;
+            line-height: 40px;
+            .border-radius(20px);
+            color: @background-white;
+            background: @main-theme;
+            border: none;
+            &:hover{
+                background: @main-theme-hover;
+            }
+        }
+    }
+    .text-input-box{
+        margin: 20px 30px 10px;
+        padding: 0;
+        display: flex;
+        height: 35px;
+        background: #fff;
+        color: @text-grey-light;
+        .border-radius(4px);
+        box-shadow: 1px 1px 5px 0 rgba(152, 169, 176, 0.2);
+        label{
+            height: 35px;
+            line-height: 35px;
+            padding: 0 10px;
+        }
+        input{
+            flex: 1;
+            line-height: 35px;
+            color: @text-grey-light;
+            height: 35px;
+            border: none;
+            outline: none;
+        }
+    }
+    .forget-password{
+        text-align: right;
+        margin: 0 30px;
+        a{
+            color: @text-grey-light;
+        }
+    }
+    .other-sign-in-type{
+        .text{
+            color: @deep-grey;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .buttons{
+            display: flex;
+            justify-content: center;
+            button{
+                font-size: 16px;
+                color: @deep-grey;
+                line-height: 36px;
+                width: 36px;
+                background: #fff;
+                .border-radius(18px);
+                box-shadow: 1px 1px 5px 0 rgba(152, 169, 176, 0.2);
+            }
+            button + button{
+                margin-left: 40px;
+            }
+        }
+    }
+}

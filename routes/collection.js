@@ -48,11 +48,11 @@ router.delete("/:id", function(req, res){
   }else {
     CollectionApi.deleteCollection(req.params.id, cookies.id)
     .then(function(){
-      return {
+      res.json({
         status: 'success'
-      }
+      })
     }).catch(function(error){
-      return res.status(400).json({
+      res.status(400).json({
         status: 'error',
         error: error
       })

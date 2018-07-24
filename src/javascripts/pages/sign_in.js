@@ -122,6 +122,12 @@ class SignIn extends Component {
             <button><i className="fa fa-qq" /></button>
           </div>
         </div>
+        <div className="page-footer img-block-1">
+          <img src="../../images/flower.png" />
+        </div>
+        <div className="page-footer img-block-2">
+          <img src="../../images/flower.png" />
+        </div>
       </div>]
     );
   }

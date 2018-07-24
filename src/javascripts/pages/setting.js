@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react';
 
 import { Link } from 'react-router-dom';
 
-import GeneralHeader from '../components/general_header';
+import GeneralHeaderWithBack from '../components/general_header_with_back'
 
 import '../../stylesheets/setting.less';
 
@@ -30,7 +30,7 @@ class Setting extends Component {
     let sex = this.state.sex || currentAccount.sex;
     let username = this.state.username || currentAccount.username;
     return [
-      <GeneralHeader key="header"/>,
+      <GeneralHeaderWithBack key="header" title="Setting" history={this.props.history}/>,
       <div className="setting-container" key="setting-container">
         <div className="img-container">
           <img src={currentAccount.avatar + "?imageView2/1/h/80/w/80"}/>

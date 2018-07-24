@@ -12,17 +12,17 @@ export default class GeneralFooter extends Component {
     return (
       <div className="general-footer-container">
         <div className="footer-block">
-          <button className="normal">
+          <button className="normal" onClick={()=>this.props.history.push("/")}>
             <i className="fa fa-home" />
             <br />
-            主页
+            <span>首页</span>
           </button>
         </div>
         <div className="footer-block">
-          <button className="normal">
+          <button className="normal" onClick={()=>this.props.history.push("/setting")}>
             <i  className="fa fa-user" />
             <br />
-            我的
+            <span>我的</span>
           </button>
         </div>
       </div>

@@ -43,7 +43,7 @@ class Home extends Component {
           </Item>
         </Tabs>
       </div>,
-      <GeneralFooter key="footer"/>]
+      <GeneralFooter key="footer" history={this.props.history}/>]
   }
 }
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { observer, inject } from 'mobx-react';
 
+import { Link } from 'react-router-dom';
+
 import axios from "axios";
 
 import { getItem } from '../utils/cookie';
@@ -41,9 +43,8 @@ class PersonalMenu extends Component {
             <img src={currentAccount.avatar ? currentAccount.avatar + "?imageView2/1/w/80/h/80": ""} />
           </div>
           <ul className="user-menu">
-            <li className="active"><i className="fa fa-commenting-o" /><span>我的消息</span></li>
-            <li><i className="fa fa-heart-o" /><span>我的借阅</span></li>
-            <li><i className="fa fa-cog" /><span>设置</span></li>
+            <li className="active"><i className="fa fa-commenting-o" /><Link to="/">我的主页</Link></li>
+            <li><i className="fa fa-cog" /><Link to="/setting">设置</Link></li>
             <li><i className="fa fa-sign-out" /><span>退出</span></li>
           </ul>
         </div>

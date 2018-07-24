@@ -6,7 +6,7 @@ import { observer, inject } from 'mobx-react';
 
 import { parseUrl } from '../utils/location';
 
-import GeneralHeader from '../components/general_header';
+import GeneralHeaderWithBack from '../components/general_header_with_back';
 
 import "../../stylesheets/editor.less";
 
@@ -65,7 +65,7 @@ class Editor extends Component {
   }
   render() {
     return [
-      <GeneralHeader key="header"/>,
+      <GeneralHeaderWithBack key="header" title="Editor" history={this.props.history}/>,
       <div className="editor-container" key="content">
         <input type="text" className="review-title" placeholder="请输入标题~~~" value={this.state.title} onChange={(evt)=>this.onStateChange("title", evt.target.value)}/>
         <input type="text" className="review-cover" placeholder="请输入封面地址URL~~~" value={this.state.cover} onChange={(evt)=>this.onStateChange("cover", evt.target.value)} />

@@ -10,7 +10,7 @@ import { getDateByTimestamp } from '../utils/date.js';
 
 import { observer, inject } from 'mobx-react';
 
-import GeneralHeader from '../components/general_header';
+import GeneralHeaderWithBack from '../components/general_header_with_back';
 
 import  CommentInput from '../components/comment_input';
 
@@ -52,7 +52,7 @@ class Review extends Component {
     const { currentReview } = this.props.reviewStore;
     const { currentAccount } = this.props.accountStore;
     return [
-      <GeneralHeader key="header"/>,
+      <GeneralHeaderWithBack key="header" title="Review" history={this.props.history}/>,
       <div className="review-container" key="content">
         <div className="cover-block">
           <img src={currentReview.cover}/>

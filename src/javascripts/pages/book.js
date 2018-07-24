@@ -8,6 +8,10 @@ import { Link } from 'react-router-dom';
 
 import GeneralHeader from '../components/general_header';
 
+import GeneralHeaderWithBack from '../components/general_header_with_back';
+
+import GeneralFooter from '../components/general_footer'
+
 import '../../stylesheets/book.less';
 
 @inject('reviewStore')
@@ -31,11 +35,14 @@ class Book extends Component {
     const { currentBook }  = this.props.bookStore;
     this.props.history.push("/reviews/new?book_id=" + currentBook.id)
   }
+  componentWillUnmount(){
+    this.props.bookStore.cleanBook();
+  }
   render() {
     const { currentBook }  = this.props.bookStore;
     const { currentReviews } = this.props.reviewStore;
     return [
-      <GeneralHeader key="header" />,
+      <GeneralHeaderWithBack key="header" title="Book" history={this.props.history}/>,
       <div className="book-detail-container" key="book">
         <div className="cover-block">
           <img src={currentBook.cover} />

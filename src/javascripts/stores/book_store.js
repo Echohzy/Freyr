@@ -11,6 +11,10 @@ export class BookStore {
   @observable isRequesting  = true;
 
   @action
+  cleanBook(){
+    this.currentBook = {};
+  }
+  @action
   getBook(id){
     axios.get("/api/books/"+id)
     .then(function(res){

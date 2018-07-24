@@ -88,7 +88,12 @@ class SignIn extends Component {
   }
   render(){
     return (
-      [<header key="header"><h1>Freyr</h1></header>,
+      [
+      <header key="header" className="sign-in-header">
+        <Link to="#">注册</Link>
+        <h1>Sign In</h1>
+        <Link to="/">取消</Link>
+      </header>,
       <div className="form-container sign-in-container" key="form">
         <div className="text-input-box">
           <label><i className="fa fa-user" /></label>
@@ -123,10 +128,10 @@ class SignIn extends Component {
           </div>
         </div>
         <div className="page-footer img-block-1">
-          <img src="../../images/flower.png" />
+          <img src="../../images/flower2.png" />
         </div>
         <div className="page-footer img-block-2">
-          <img src="../../images/flower.png" />
+          <img src="../../images/flower2.png" />
         </div>
       </div>]
     );
